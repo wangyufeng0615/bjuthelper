@@ -1,6 +1,14 @@
 #工大野生助手
 
+##访问量
+
 ![](http://7xku3h.com1.z0.glb.clouddn.com/16-7-16/85684382.jpg)
+
+##预览
+
+![](http://7xku3h.com1.z0.glb.clouddn.com/16-7-23/47970514.jpg)
+
+![](http://7xku3h.com1.z0.glb.clouddn.com/16-7-23/51440149.jpg)
 
 ##功能
 
