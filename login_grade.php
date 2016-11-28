@@ -2,65 +2,63 @@
     session_start();
     $id=session_id();
     $_SESSION['id']=$id;
-
-    require_verify_code();  //»ñÈ¡ÑéÖ¤Âë
-
+    require_verify_code();  //è·å–éªŒè¯ç 
     function require_verify_code(){
-        $cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';    //cookieÂ·¾¶  
-        $verify_code_url = "http://gdjwgl.bjut.edu.cn/CheckCode.aspx";      //ÑéÖ¤ÂëµØÖ·
+        $cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';    //cookieè·¯å¾„  
+        $verify_code_url = "http://gdjwgl.bjut.edu.cn/CheckCode.aspx";      //éªŒè¯ç åœ°å€
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $verify_code_url);
-        curl_setopt($curl, CURLOPT_COOKIEJAR, $cookie);                     //±£´æcookie
+        curl_setopt($curl, CURLOPT_COOKIEJAR, $cookie);                     //ä¿å­˜cookie
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $img = curl_exec($curl);                                            //Ö´ĞĞcurl
+        $img = curl_exec($curl);                                            //æ‰§è¡Œcurl
         curl_close($curl);
-
-        $fp = fopen("verifyCode.jpg","w");                                  //ÎÄ¼şÃû
-        fwrite($fp,$img);                                                   //Ğ´ÈëÎÄ¼ş 
+        $fp = fopen("verifyCode.jpg","w");                                  //æ–‡ä»¶å
+        fwrite($fp,$img);                                                   //å†™å…¥æ–‡ä»¶ 
         fclose($fp);
     }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_cn">
 <head>
-	<meta charset="gbk">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>Ò°Éú¹¤´óÖúÊÖ</title>
-	<link rel="stylesheet" href="/weui/dist/style/weui.min.css"/>
+	<title>é‡ç”Ÿå·¥å¤§åŠ©æ‰‹</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
     <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
 	<script src="/js/login_score.js"></script>  
 </head>
 <body>
-    <!-- Ê¹ÓÃµÄÊÇWeUI -->
-	<form action="http://yourip/require_grade.php" method="post">
-		<div class="weui_cells_title">µÇÂ¼ĞÅÏ¢</div>
+    <!-- ä½¿ç”¨çš„æ˜¯WeUI -->
+	<form action="/require_grade.php" method="post">
+		<div class="weui_cells_title">ç™»å½•ä¿¡æ¯</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
-					<label class="weui_label">Ñ§ºÅ</label>
+					<label class="weui_label">å­¦å·</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" name="account" type="text" placeholder="ÇëÊäÈëÑ§ºÅ">
+					<input class="weui_input" name="account" type="text" placeholder="è¯·è¾“å…¥å­¦å·">
 				</div>
 			</div>
 
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
-					<label class="weui_label">ÃÜÂë</label>
+					<label class="weui_label">å¯†ç </label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" name="password" type="password" placeholder="ÇëÊäÈë½ÌÎñÃÜÂë(gdjwgl.bjut.edu.cn)">
+					<input class="weui_input" name="password" type="password" placeholder="è¯·è¾“å…¥æ•™åŠ¡å¯†ç (gdjwgl.bjut.edu.cn)">
 				</div>
 			</div>
 
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    Ñ§Äê
+                    å­¦å¹´
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_year">
+                        <option value="2016-2017">2016-2017</option>>
                         <option value="2015-2016">2015-2016</option>
                         <option value="2014-2015">2014-2015</option>
                         <option value="2013-2014">2013-2014</option>
@@ -70,21 +68,21 @@
 
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    Ñ§ÆÚ
+                    å­¦æœŸ
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_term">
-                        <option value="1">1</option>
-                        <option selected="" value="2">2</option>
+                        <option selected="" value="1">1</option>
+                        <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
                 </div>
             </div>
 
 			<div class="weui_cell weui_vcode">
-				<div class="weui_cell_hd"><label class="weui_label">ÑéÖ¤Âë</label></div>
+				<div class="weui_cell_hd"><label class="weui_label">éªŒè¯ç </label></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" name="verify_code" type="text" placeholder="ÇëÊäÈëÑéÖ¤Âë"/>
+					<input class="weui_input" name="verify_code" type="text" placeholder="è¯·è¾“å…¥éªŒè¯ç "/>
 				</div>
 				<div class="weui_cell_ft">
 					<img id="verify_code" src="verifyCode.jpg" onclick="update_verify_code()" />
@@ -111,12 +109,12 @@
                         <div class="weui_loading_leaf weui_loading_leaf_10"></div>
                         <div class="weui_loading_leaf weui_loading_leaf_11"></div>
                     </div>
-                    <p class="weui_toast_content">Êı¾İ¼ÓÔØÖĞ</p>
+                    <p class="weui_toast_content">æ•°æ®åŠ è½½ä¸­</p>
                 </div>
             </div>
 
         <script>
-            //LoadingĞı×ª¾Õ»¨
+            //Loadingæ—‹è½¬èŠèŠ±
             $(function() {
                 $('#showLoadingToast').click(function() {
                     $('#loadingToast').fadeIn().delay(5000).fadeOut();
@@ -124,17 +122,18 @@
             })
         </script>
 
-		<input class="weui_btn weui_btn_primary" type="submit" value="²éÑ¯" id="showLoadingToast"/>
+		<input class="weui_btn weui_btn_primary" type="submit" value="æŸ¥è¯¢" id="showLoadingToast"/>
 	</form>		
 
 	<article class="weui_article">
-		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;ÕËºÅºÍÃÜÂë²»»á±»±£Áô£¬Çë·ÅĞÄÊ¹ÓÃ¡£<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;×Ü¼ÓÈ¨Æ½¾ù·ÖºÍ×ÜÆ½¾ùGPAµÄÊı¾İÖ»¶ÔÃ»±¨¶ş×¨Òµ/¸¨ĞŞµÄÍ¬Ñ§ÓĞĞ§<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Êı¾İ½ö¹©²Î¿¼£¬ÇëÒÔ½ÌÎñÏµÍ³Îª×¼¡£<br/><br/>
+		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;è´¦å·å’Œå¯†ç ä¸ä¼šè¢«ä¿ç•™ï¼Œè¯·æ”¾å¿ƒä½¿ç”¨ã€‚<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;æ€»åŠ æƒå¹³å‡åˆ†å’Œæ€»å¹³å‡GPAçš„æ•°æ®åªå¯¹æ²¡æŠ¥äºŒä¸“ä¸š/è¾…ä¿®çš„åŒå­¦æœ‰æ•ˆ<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;æ•°æ®ä»…ä¾›å‚è€ƒï¼Œè¯·ä»¥æ•™åŠ¡ç³»ç»Ÿä¸ºå‡†ã€‚<br/><br/>
 		<section>
-Powered by Dept.7<br/>Contact: wyf0615@emails.bjut.edu.cn
+å¦‚æ•°æ®æœ‰é—®é¢˜è¯·è”ç³»ç‹é›¨å³°åŒå­¦<br />
+Contact: wyf0615@emails.bjut.edu.cn<br />
+æ„Ÿè°¢é™ˆä»•çºåŒå­¦å¯¹æœ¬ç«™ç¨³å®šè¿è¥çš„å¤§åŠ›æ”¯æŒ!<br />
         </section>
     </article>
 
-    <script src="weui/dist/example/zepto.min.js"></script>
-    <!-- CNZZµÄÍ³¼ÆDIV¿ÉÒÔ·ÅÔÚÕâÀï -->
+    <div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
     </body>
 </html>

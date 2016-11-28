@@ -6,7 +6,7 @@
     echo '<meta charset="gbk">';
     echo '<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">';
     echo '<title>成绩查询结果</title>';
-    echo '<link rel="stylesheet" href="/weui/dist/style/weui.min.css"/>';
+    echo '<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>';
     echo '</head>';
 ?>
 
@@ -28,7 +28,6 @@
         curl_close($ch);
         return $result;
     }
-
     //获取VIEWSTATE
     $_SESSION['xh']=$_POST['account'];
     $xh=$_POST['account'];
@@ -40,8 +39,8 @@
     $url="http://gdjwgl.bjut.edu.cn/default2.aspx";  //教务地址
     $con1=login_post($url,$cookie,'');               //登陆
     preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //获取__VIEWSTATE字段并存到$view数组中
-
     //为登陆准备的POST数据
+    
     $post=array(
         '__VIEWSTATE'=>$view[1][0],
         'txtUserName'=>$xh,
@@ -54,30 +53,25 @@
         'hidsc'=>''
         );
     $con2=login_post($url,$cookie,http_build_query($post)); //将数组连接成字符串, 登陆教务系统
-
+    
     //若登陆信息输入有误
     if(!preg_match("/xs_main/", $con2)){
-        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码 or 验证码输入错误，或者是选择了无效的学年/学期，请<a href="你的主页地址">返回</a>重新输入</h2>';
+        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码 or 验证码输入错误，或者是选择了无效的学年/学期，请<a href="/login_grade.php">返回</a>重新输入</h2>';
         exit();
     }
 
     //Login done.
-
     require_score($cookie, $current_year, $current_term);    //获取加权平均分和成绩明细
-
     
-
 function require_score($cookie, $current_year, $current_term){
     // 不知道为什么，不提交姓名信息也能查询
     // preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
     // print_r($xm);
     // $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-
     $url2="http://gdjwgl.bjut.edu.cn/xscjcx.aspx?xh=".$_SESSION['xh'];
     $viewstate=login_post($url2,$cookie,'');
     preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
     $state=$vs[1][0];  //$state存放一会post的__VIEWSTATE
-
     //查询某一学期的成绩
     $post=array(
      '__EVENTTARGET'=>'',
@@ -91,7 +85,6 @@ function require_score($cookie, $current_year, $current_term){
        );
     $content=login_post($url2,$cookie,http_build_query($post)); //获取原始数据
     $content=get_td_array($content);    //table转array
-
     //查询总成绩
     $post_allgrade=array(
      '__EVENTTARGET'=>'',
@@ -105,14 +98,12 @@ function require_score($cookie, $current_year, $current_term){
        );
     $content_allgrade=login_post($url2,$cookie,http_build_query($post_allgrade)); //获取原始数据
     $content_allgrade=get_td_array($content_allgrade);    //table转array
-
     //计算总的加权分数和总的GPA
     $i = 5;         //从array[5]开始是有效信息
     $all_score = 0; //总的加权*分数
     $all_value = 0; //总的学分权值
     $all_GPA = 0;   //总的GPA
     $all_number_of_lesson = 0;  //总的课程数
-
     //计算总和的东西，学分/GPA
     while(isset($content_allgrade[$i][4])){
         //不计算第二课堂和新生研讨课以及0分课程
@@ -132,28 +123,22 @@ function require_score($cookie, $current_year, $current_term){
             else if ($content_allgrade[$i][4] >= 60 && $content_allgrade[$i][4] < 70){
                 $all_GPA += 2.0;
             }
-
             $i++;
             $all_number_of_lesson++;
         }
     }
-
-
     //个别学期加权平均分和GPA的计算
     $i = 5;                       //array从5开始是课程，定死了，不能改
-
     //主修课程
     $total_score = 0;
     $total_value = 0;
     $total_GPA = 0;
     $number_of_lesson = 0;        //主修总课程数
-
     //二专业和辅修，content[$i][9] == 2
     $total_score_fuxiu = 0;
     $total_value_fuxiu = 0;
     $total_GPA_fuxiu = 0;
     $number_of_lesson_fuxiu = 0;  //二专业/辅修课程数
-
     //计算个别学期的信息
     while(isset($content[$i][8])){
         if ($content[$i][5] === "第二课堂" || $content[$i][5] === "新生研讨课" || $content[$i][8] < 5){
@@ -168,7 +153,6 @@ function require_score($cookie, $current_year, $current_term){
                 $i++;
                 $number_of_lesson_fuxiu++;
             }  
-
             //普通课程
             if ($content[$i][9] == 0){
                 $total_score += ($content[$i][8] * $content[$i][6]);  //  累加总分
@@ -179,14 +163,11 @@ function require_score($cookie, $current_year, $current_term){
             }
         }
     }
-
     $average_score = $total_score / $total_value;
     $average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
-
     echo'
     <div class="weui_cells_title">平均分</div>
     <div class="weui_cells">
-
     <div class="weui_cell">
     <div class="weui_cell_bd weui_cell_primary" id="average_score">
     <p>';
@@ -194,7 +175,6 @@ function require_score($cookie, $current_year, $current_term){
     echo'</p>
     </div>
     </div>
-
     <div class="weui_cell">
     <div class="weui_cell_bd weui_cell_primary" id="average_score">
     <p>';
@@ -202,7 +182,6 @@ function require_score($cookie, $current_year, $current_term){
     echo'</p>
     </div>
     </div>
-
     <div class="weui_cell">
     <div class="weui_cell_bd weui_cell_primary" id="average_score">
     <p>';
@@ -210,7 +189,6 @@ function require_score($cookie, $current_year, $current_term){
     echo'</p>
     </div>
     </div>
-
     <div class="weui_cell">
     <div class="weui_cell_bd weui_cell_primary" id="average_GPA">
     <p>';
@@ -219,7 +197,6 @@ function require_score($cookie, $current_year, $current_term){
     </p>
     </div>
     </div>';
-
     //辅修/二专业课程信息输出
     if ($total_score_fuxiu > 0) {
         echo'
@@ -230,7 +207,6 @@ function require_score($cookie, $current_year, $current_term){
         echo'</p>
         </div>
         </div>
-
         <div class="weui_cell">
         <div class="weui_cell_bd weui_cell_primary" id="average_score">
         <p>';
@@ -239,16 +215,13 @@ function require_score($cookie, $current_year, $current_term){
         </div>
         </div>';
     }
-
     echo'
     </div> 
-
-    <script src="weui/dist/example/zepto.min.js"></script>
+    <!-- <script src="weui/dist/example/zepto.min.js"></script> -->
     <!-- <script src="weui/dist/example/toast.js"></script> -->
     <script src="/js/require_score.js"></script>   
     </body>
     </html>';
-
     //输出课程明细,主修课程
     echo '<div class="weui_cells_title">课程明细</div>';
     echo '<div class="weui_cells">';
@@ -264,7 +237,6 @@ function require_score($cookie, $current_year, $current_term){
         $i++;
     }   
     echo '</div>';
-
     //输出辅修/二专业课程信息
     if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
         echo '<div class="weui_cells_title">辅修/二专业课程</div>';
@@ -282,10 +254,8 @@ function require_score($cookie, $current_year, $current_term){
         }   
         echo '</div>';       
     }
-
     echo '<a class="weui_btn weui_btn_default" href="javascript:;" onClick="location.href=document.referrer">返回</a>';
 }
-
     //table转array
     function get_td_array($table) {
         $table = preg_replace("'<table[^>]*?>'si","",$table);

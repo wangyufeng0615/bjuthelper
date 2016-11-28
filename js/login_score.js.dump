@@ -1,0 +1,3 @@
+function update_verify_code(){
+	location.reload(true);
+}
