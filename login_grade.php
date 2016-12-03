@@ -13,7 +13,8 @@
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $img = curl_exec($curl);                                            //执行curl
         curl_close($curl);
-        $fp = fopen("verifyCode.jpg","w");                                  //文件名
+        $path_of_verifyCode = '/verifyCodes/verifyCode_'.md5($cookie).'.jpg';
+        $fp = fopen($path_of_verifyCode,"w");                                  //文件名
         fwrite($fp,$img);                                                   //写入文件 
         fclose($fp);
     }
@@ -58,7 +59,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_year">
-                        <option value="2016-2017">2016-2017</option>>
+                        <option value="2016-2017">2016-2017</option>
                         <option value="2015-2016">2015-2016</option>
                         <option value="2014-2015">2014-2015</option>
                         <option value="2013-2014">2013-2014</option>
@@ -85,7 +86,7 @@
 					<input class="weui_input" name="verify_code" type="text" placeholder="请输入验证码"/>
 				</div>
 				<div class="weui_cell_ft">
-					<img id="verify_code" src="verifyCode.jpg" onclick="update_verify_code()" />
+                <img id="verify_code" src="verifyCode_<?php print md5($cookie) ?>.jpg" onclick="update_verify_code()" />
 				</div>
 			</div>
 
