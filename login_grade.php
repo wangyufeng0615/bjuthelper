@@ -13,7 +13,8 @@
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $img = curl_exec($curl);                                            //执行curl
         curl_close($curl);
-        $path_of_verifyCode =dirname(__FILE__).'/verifyCodes/verifyCode_'.md5($cookie).'.jpg';
+        $rand_id = rand(100000, 999999);
+        $path_of_verifyCode =dirname(__FILE__).'/verifyCodes/verifyCode_'.$rand_id.'.jpg';
         $fp = fopen($path_of_verifyCode,"w");                                  //文件名
         fwrite($fp,$img);                                                   //写入文件 
         fclose($fp);
@@ -86,7 +87,7 @@
 					<input class="weui_input" name="verify_code" type="text" placeholder="请输入验证码"/>
 				</div>
 				<div class="weui_cell_ft">
-                <img id="verify_code" src="/verifyCodes/verifyCode_<?php print md5($cookie) ?>.jpg" onclick="update_verify_code()" />
+                <img id="verify_code" src="/verifyCodes/verifyCode_<?php print $rand_id ?>.jpg" onclick="update_verify_code()" />
 				</div>
 			</div>
 
