@@ -2,8 +2,8 @@
     session_start();
     $id=session_id();
     $_SESSION['id']=$id;
-    require_verify_code();  //获取验证码
     $rand_id = rand(100000, 999999);    //for verifycode
+    require_verify_code();  //获取验证码
     function require_verify_code(){
         $cookie = dirname(__FILE__).'/cookie/'.$_SESSION['id'].'.txt';    //cookie路径  
         $verify_code_url = "http://gdjwgl.bjut.edu.cn/CheckCode.aspx";      //验证码地址
