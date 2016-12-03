@@ -3,6 +3,7 @@
     $id=session_id();
     $_SESSION['id']=$id;
     require_verify_code();  //获取验证码
+    $rand_id = rand(100000, 999999);    //for verifycode
     function require_verify_code(){
         $cookie = dirname(__FILE__).'/cookie/'.$_SESSION['id'].'.txt';    //cookie路径  
         $verify_code_url = "http://gdjwgl.bjut.edu.cn/CheckCode.aspx";      //验证码地址
@@ -13,7 +14,6 @@
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $img = curl_exec($curl);                                            //执行curl
         curl_close($curl);
-        $rand_id = rand(100000, 999999);
         $path_of_verifyCode =dirname(__FILE__).'/verifyCodes/verifyCode_'.$rand_id.'.jpg';
         $fp = fopen($path_of_verifyCode,"w");                                  //文件名
         fwrite($fp,$img);                                                   //写入文件 
