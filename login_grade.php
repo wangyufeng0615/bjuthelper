@@ -14,7 +14,9 @@
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $img = curl_exec($curl);                                            //执行curl
         curl_close($curl);
+        echo $rand_id;
         $path_of_verifyCode =dirname(__FILE__).'/verifyCodes/verifyCode_'.$GLOBALS['rand_id'].'.jpg';
+        echo $path_of_verifyCode;
         $fp = fopen($path_of_verifyCode,"w");                                  //文件名
         fwrite($fp,$img);                                                   //写入文件 
         fclose($fp);
