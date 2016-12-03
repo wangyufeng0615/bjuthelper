@@ -86,7 +86,7 @@
 					<input class="weui_input" name="verify_code" type="text" placeholder="请输入验证码"/>
 				</div>
 				<div class="weui_cell_ft">
-                <img id="verify_code" src="verifyCode_<?php print md5($cookie) ?>.jpg" onclick="update_verify_code()" />
+                <img id="verify_code" src="/verifyCodes/verifyCode_<?php print md5($cookie) ?>.jpg" onclick="update_verify_code()" />
 				</div>
 			</div>
 
