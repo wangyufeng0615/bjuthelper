@@ -134,6 +134,7 @@
 如数据有问题请联系王雨峰同学<br />
 Contact: wyf0615@emails.bjut.edu.cn<br />
 感谢陈仕玺同学对本站稳定运营的大力支持!<br />
+<a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
         </section>
     </article>
 
