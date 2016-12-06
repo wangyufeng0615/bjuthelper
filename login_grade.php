@@ -129,9 +129,9 @@
 	</form>		
 
 	<article class="weui_article">
-		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会被保留，请放心使用。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总加权平均分和总平均GPA的数据只对没报二专业/辅修的同学有效<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据仅供参考，请以教务系统为准。<br/><br/>
+		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对没报二专业/辅修的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br/>注意：数据仅供参考，请以教务系统为准。<br/><br/>
 		<section>
-如数据有问题请联系王雨峰同学<br />
+如数据有问题(或者网站打不开了)请联系王雨峰同学<br />
 Contact: wyf0615@emails.bjut.edu.cn<br />
 感谢陈仕玺同学对本站稳定运营的大力支持!<br />
 QR Code is designed by the most beautiful girl in the world.<br />
