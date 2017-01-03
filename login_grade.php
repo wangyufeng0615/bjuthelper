@@ -134,9 +134,9 @@
 如数据有问题(或者网站打不开了)请联系王雨峰同学<br />
 Contact: wyf0615@emails.bjut.edu.cn<br />
 或者<a href="http://www.devchen.com">陈仕玺同学</a><br />
-Contact: i@devChen.com<br />
-
-<a href="http://www.miit.gov.cn/">京ICP备你妹</a>
+Contact: i@devChen.com<br /><br />
+QR Code is designed by the most beautiful girl in the world.<br />
+<a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
         </section>
     </article>
 	<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
