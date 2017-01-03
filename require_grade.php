@@ -1,14 +1,11 @@
-<?php
-    //打印html <head>
-    echo "<!DOCTYPE html>";
-    echo "<html lang='en'>";
-    echo "<head>";
-    echo '<meta charset="gbk">';
-    echo '<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">';
-    echo '<title>成绩查询结果</title>';
-    echo '<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>';
-    echo '</head>';
-?>
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset="gbk">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<title>成绩查询结果</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
+</head>
 
 <?php 
     session_start();
@@ -22,7 +19,7 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);   //不自动输出数据，要echo才行
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  //重要，抓取跳转后数据
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie); 
-        curl_setopt($ch, CURLOPT_REFERER, 'http://gdjwgl.bjut.edu.cn/default2.aspx');  //重要，302跳转需要referer，可以在Request Headers找到 
+        //curl_setopt($ch, CURLOPT_REFERER, 'http://gdjwgl.bjut.edu.cn/default2.aspx');  //重要，302跳转需要referer，可以在Request Headers找到 
         curl_setopt($ch, CURLOPT_POSTFIELDS,$post);   //post提交数据
         $result=curl_exec($ch);
         curl_close($ch);
@@ -34,29 +31,30 @@
     $pw=$_POST['password'];
     $current_year=$_POST['current_year'];
     $current_term=$_POST['current_term'];
-    $code= $_POST['verify_code'];
+    //$code= $_POST['verify_code'];
     $cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
-    $url="http://gdjwgl.bjut.edu.cn/default2.aspx";  //教务地址
+    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
     $con1=login_post($url,$cookie,'');               //登陆
     preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //获取__VIEWSTATE字段并存到$view数组中
     //为登陆准备的POST数据
     
     $post=array(
-        '__VIEWSTATE'=>$view[1][0],
-        'txtUserName'=>$xh,
+        //'__VIEWSTATE'=>$view[1][0],
+        'TextBox1'=>$xh,
         'TextBox2'=>$pw,
-        'txtSecretCode'=>$code,
-        'RadioButtonList1'=>'%D1%A7%C9%FA',  //“学生”的gbk编码
+        //'txtSecretCode'=>$code,
+        'RadioButtonList1_2'=>'%D1%A7%C9%FA',  //“学生”的gbk编码
         'Button1'=>'',
-        'lbLanguage'=>'',
-        'hidPdrs'=>'',
-        'hidsc'=>''
+        //'lbLanguage'=>'',
+        //'hidPdrs'=>'',
+        //'hidsc'=>''
         );
     $con2=login_post($url,$cookie,http_build_query($post)); //将数组连接成字符串, 登陆教务系统
     
     //若登陆信息输入有误
     if(!preg_match("/xs_main/", $con2)){
-        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码 or 验证码输入错误，或者是选择了无效的学年/学期，请<a href="/login_grade.php">返回</a>重新输入</h2>';
+		//echo $con2;
+        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码输入错误，或者是选择了无效的学年/学期，请<a href="/login_grade.php">返回</a>重新输入</h2>';
         exit();
     }
 
