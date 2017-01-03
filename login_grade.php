@@ -27,7 +27,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>野生工大助手</title>
+	<title>野生工大助手 - 无验证码版</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
     <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
 	<script src="/js/login_score.js"></script>  
@@ -133,11 +133,12 @@
 		<section>
 如数据有问题(或者网站打不开了)请联系王雨峰同学<br />
 Contact: wyf0615@emails.bjut.edu.cn<br />
-感谢陈仕玺同学对本站稳定运营的大力支持!<br />
-QR Code is designed by the most beautiful girl in the world.<br />
+或者<a href="http://www.devchen.com">陈仕玺同学</a><br />
+Contact: i@devChen.com<br />
+
 <a href="http://www.miit.gov.cn/">京ICP备你妹</a>
         </section>
     </article>
-
+	<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
     </body>
 </html>
