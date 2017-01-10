@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh_cn'>
 <head>
-	<meta charset="gbk">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>³É¼¨²éÑ¯½á¹û</title>
+	<title>æˆç»©æŸ¥è¯¢ç»“æœ</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
 </head>
 
 <?php 
     session_start();
 	$cookie='';
-    header("Content-type: text/html; charset=gbk");  //ÊÓÑ§Ğ£¶ø¶¨£¬Ò»°ãÊÇgbk±àÂë£¬phpÒ²²ÉÓÃµÄgbk±àÂë·½Ê½
+    header("Content-type: text/html; charset=utf-8");  //è§†å­¦æ ¡è€Œå®šï¼Œä¸€èˆ¬æ˜¯gbkç¼–ç ï¼Œphpä¹Ÿé‡‡ç”¨çš„gbkç¼–ç æ–¹å¼
     
-    //function: ¹¹ÔìpostÊı¾İ²¢µÇÂ½
+    //function: æ„é€ postæ•°æ®å¹¶ç™»é™†
     function login_post($url,$post){
 		global $cookie;
         $ch = curl_init($url);
         //curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   //²»×Ô¶¯Êä³öÊı¾İ£¬Òªecho²ÅĞĞ
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  //ÖØÒª£¬×¥È¡Ìø×ªºóÊı¾İ
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   //ä¸è‡ªåŠ¨è¾“å‡ºæ•°æ®ï¼Œè¦echoæ‰è¡Œ
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  //é‡è¦ï¼ŒæŠ“å–è·³è½¬åæ•°æ®
 		if (strlen($cookie)) curl_setopt($ch, CURLOPT_COOKIE, $cookie); //if have cookie, set it
         //curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie); 
-        //curl_setopt($ch, CURLOPT_REFERER, 'http://gdjwgl.bjut.edu.cn/default2.aspx');  //ÖØÒª£¬302Ìø×ªĞèÒªreferer£¬¿ÉÒÔÔÚRequest HeadersÕÒµ½ 
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$post);   //postÌá½»Êı¾İ
+        //curl_setopt($ch, CURLOPT_REFERER, 'http://gdjwgl.bjut.edu.cn/default2.aspx');  //é‡è¦ï¼Œ302è·³è½¬éœ€è¦refererï¼Œå¯ä»¥åœ¨Request Headersæ‰¾åˆ° 
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$post);   //postæäº¤æ•°æ®
         $result=curl_exec($ch);
 		if (preg_match('/Set-Cookie: (.+?);/',$result,$str)){
 			$cookie = $str[1];
@@ -31,7 +31,7 @@
 		curl_close($ch);
         return $result;
     }
-    //»ñÈ¡VIEWSTATE
+    //è·å–VIEWSTATE
     $_SESSION['xh']=$_POST['account'];
     $xh=$_POST['account'];
     $pw=$_POST['password'];
@@ -39,129 +39,132 @@
     $current_term=$_POST['current_term'];
     //$code= $_POST['verify_code'];
     //$cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
-    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //½ÌÎñµØÖ·
-    //$con1=login_post($url,$cookie,'');               //µÇÂ½
-    //preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //»ñÈ¡__VIEWSTATE×Ö¶Î²¢´æµ½$viewÊı×éÖĞ
-    //ÎªµÇÂ½×¼±¸µÄPOSTÊı¾İ
+    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //æ•™åŠ¡åœ°å€
+    //$con1=login_post($url,$cookie,'');               //ç™»é™†
+    //preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //è·å–__VIEWSTATEå­—æ®µå¹¶å­˜åˆ°$viewæ•°ç»„ä¸­
+    //ä¸ºç™»é™†å‡†å¤‡çš„POSTæ•°æ®
     
     $post=array(
         //'__VIEWSTATE'=>$view[1][0],
         'TextBox1'=>$xh,
         'TextBox2'=>$pw,
         //'txtSecretCode'=>$code,
-        'RadioButtonList1_2'=>'%D1%A7%C9%FA',  //¡°Ñ§Éú¡±µÄgbk±àÂë
+        'RadioButtonList1_2'=>'%D1%A7%C9%FA',  //â€œå­¦ç”Ÿâ€çš„gbkç¼–ç 
         'Button1'=>'',
         //'lbLanguage'=>'',
         //'hidPdrs'=>'',
         //'hidsc'=>''
         );
-    $con2=login_post($url,http_build_query($post)); //½«Êı×éÁ¬½Ó³É×Ö·û´®, µÇÂ½½ÌÎñÏµÍ³
+    $con2=login_post($url,http_build_query($post)); //å°†æ•°ç»„è¿æ¥æˆå­—ç¬¦ä¸², ç™»é™†æ•™åŠ¡ç³»ç»Ÿ
     
-    //ÈôµÇÂ½ĞÅÏ¢ÊäÈëÓĞÎó
+    //è‹¥ç™»é™†ä¿¡æ¯è¾“å…¥æœ‰è¯¯
     if(!preg_match("/xs_main/", $con2)){
 		//echo $con2;
-        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;ÄúµÄÕËºÅ or ÃÜÂëÊäÈë´íÎó£¬»òÕßÊÇÑ¡ÔñÁËÎŞĞ§µÄÑ§Äê/Ñ§ÆÚ£¬Çë<a href="/login_grade.php">·µ»Ø</a>ÖØĞÂÊäÈë</h2>';
+        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;æ‚¨çš„è´¦å· or å¯†ç è¾“å…¥é”™è¯¯ï¼Œæˆ–è€…æ˜¯é€‰æ‹©äº†æ— æ•ˆçš„å­¦å¹´/å­¦æœŸï¼Œè¯·<a href="/login_grade.php">è¿”å›</a>é‡æ–°è¾“å…¥</h2>';
         exit();
     }
 
     //Login done.
-    require_score($cookie, $current_year, $current_term);    //»ñÈ¡¼ÓÈ¨Æ½¾ù·ÖºÍ³É¼¨Ã÷Ï¸
+    require_score($cookie, $current_year, $current_term);    //è·å–åŠ æƒå¹³å‡åˆ†å’Œæˆç»©æ˜ç»†
     
 	function require_score($cookie, $current_year, $current_term){
-		// ²»ÖªµÀÎªÊ²Ã´£¬²»Ìá½»ĞÕÃûĞÅÏ¢Ò²ÄÜ²éÑ¯
-		// preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //ÕıÔò³öµÄÊı¾İ´æµ½$xmÊı×éÖĞ
+		// ä¸çŸ¥é“ä¸ºä»€ä¹ˆï¼Œä¸æäº¤å§“åä¿¡æ¯ä¹Ÿèƒ½æŸ¥è¯¢
+		// preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //æ­£åˆ™å‡ºçš„æ•°æ®å­˜åˆ°$xmæ•°ç»„ä¸­
 		// print_r($xm);
-		// $xm[1][0]=substr($xm[1][0],0,-4);  //×Ö·û´®½ØÈ¡£¬»ñµÃĞÕÃû
+		// $xm[1][0]=substr($xm[1][0],0,-4);  //å­—ç¬¦ä¸²æˆªå–ï¼Œè·å¾—å§“å
 		$url2="http://gdjwgl.bjut.edu.cn/xscjcx.aspx?xh=".$_SESSION['xh'];
 		$viewstate=login_post($url2,'');
 		preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
-		$state=$vs[1][0];  //$state´æ·ÅÒ»»ápostµÄ__VIEWSTATE
-		//²éÑ¯Ä³Ò»Ñ§ÆÚµÄ³É¼¨
+		$state=$vs[1][0];  //$stateå­˜æ”¾ä¸€ä¼špostçš„__VIEWSTATE
+		//æŸ¥è¯¢æŸä¸€å­¦æœŸçš„æˆç»©
 		$post=array(
 		 '__EVENTTARGET'=>'',
 		 '__EVENTARGUMENT'=>'',
 		 '__VIEWSTATE'=>$state,
 		 'hidLanguage'=>'',
-		   'ddlXN'=>$current_year,  //µ±Ç°Ñ§Äê
-		   'ddlXQ'=>$current_term,  //µ±Ç°Ñ§ÆÚ
+		   'ddlXN'=>$current_year,  //å½“å‰å­¦å¹´
+		   'ddlXQ'=>$current_term,  //å½“å‰å­¦æœŸ
 		   'ddl_kcxz'=>'',
-		   'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //¡°Ñ§ÆÚ³É¼¨¡±µÄgbk±àÂë£¬ÊÓÇé¿ö¶ø¶¨
+		   'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //â€œå­¦æœŸæˆç»©â€çš„gbkç¼–ç ï¼Œè§†æƒ…å†µè€Œå®š
 		   );
-		$content=login_post($url2,http_build_query($post)); //»ñÈ¡Ô­Ê¼Êı¾İ
-		$content=get_td_array($content);    //table×ªarray
-		//²éÑ¯×Ü³É¼¨
+		$content=login_post($url2,http_build_query($post)); //è·å–åŸå§‹æ•°æ®
+		$content=get_td_array($content);    //tableè½¬array
+		//æŸ¥è¯¢æ€»æˆç»©
 		$post_allgrade=array(
 		 '__EVENTTARGET'=>'',
 		 '__EVENTARGUMENT'=>'',
 		 '__VIEWSTATE'=>$state,
 		 'hidLanguage'=>'',
-		   'ddlXN'=>$current_year,  //µ±Ç°Ñ§Äê
-		   'ddlXQ'=>$current_term,  //µ±Ç°Ñ§ÆÚ
+		   'ddlXN'=>$current_year,  //å½“å‰å­¦å¹´
+		   'ddlXQ'=>$current_term,  //å½“å‰å­¦æœŸ
 		   'ddl_kcxz'=>'',
-		   'btn_zg'=>'%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //²»ÖªµÀÊÇÉ¶
+		   'btn_zg'=>'%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //è¯¾ç¨‹æœ€é«˜æˆç»©-gbk
 		   );
-		$content_allgrade=login_post($url2,http_build_query($post_allgrade)); //»ñÈ¡Ô­Ê¼Êı¾İ
-		$content_allgrade=get_td_array($content_allgrade);    //table×ªarray
-		//¼ÆËã×ÜµÄ¼ÓÈ¨·ÖÊıºÍ×ÜµÄGPA
-		$i = 5;         //´Óarray[5]¿ªÊ¼ÊÇÓĞĞ§ĞÅÏ¢
-		$all_score = 0; //×ÜµÄ¼ÓÈ¨*·ÖÊı
-		$all_value = 0; //×ÜµÄÑ§·ÖÈ¨Öµ
-		$all_GPA = 0;   //×ÜµÄGPA
-		$all_number_of_lesson = 0;  //×ÜµÄ¿Î³ÌÊı
-		//¼ÆËã×ÜºÍµÄ¶«Î÷£¬Ñ§·Ö/GPA
+		$content_allgrade=login_post($url2,http_build_query($post_allgrade)); //è·å–åŸå§‹æ•°æ®
+		$content_allgrade=get_td_array($content_allgrade);    //tableè½¬array
+		//è®¡ç®—æ€»çš„åŠ æƒåˆ†æ•°å’Œæ€»çš„GPA
+		$i = 5;         //ä»array[5]å¼€å§‹æ˜¯æœ‰æ•ˆä¿¡æ¯
+		$all_score = 0; //æ€»çš„åŠ æƒ*åˆ†æ•°
+		$all_value = 0; //æ€»çš„å­¦åˆ†æƒå€¼
+		$all_GPA = 0;   //æ€»çš„GPA*åˆ†æ•°
+		$all_number_of_lesson = 0;  //æ€»çš„è¯¾ç¨‹æ•°
+		$all_number_of_lesson_with_nopass = 0; //åŒ…å«æœªè¿‡è¯¾ç¨‹çš„æ€»æ•°
+		//è®¡ç®—æ€»å’Œçš„ä¸œè¥¿ï¼Œå­¦åˆ†/GPA
 		while(isset($content_allgrade[$i][4])){
-			//²»¼ÆËãµÚ¶ş¿ÎÌÃºÍĞÂÉúÑĞÌÖ¿ÎÒÔ¼°0·Ö¿Î³Ì
-			if ($content_allgrade[$i][5] === "µÚ¶ş¿ÎÌÃ" || $content_allgrade[$i][5] == "ĞÂÉúÑĞÌÖ¿Î" || $content_allgrade[$i][4] < 5){
+			//ä¸è®¡ç®—ç¬¬äºŒè¯¾å ‚å’Œæ–°ç”Ÿç ”è®¨è¯¾ä»¥åŠæœªé€šè¿‡è¯¾ç¨‹
+			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","ç¬¬äºŒè¯¾å ‚") || $content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","æ–°ç”Ÿç ”è®¨è¯¾") || $content_allgrade[$i][4] < 60){
+				if ($content_allgrade[$i][4] < 60) $all_number_of_lesson_with_nopass++;
 				$i++;
 			}
 			else{
-				$all_score += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);  //  ÀÛ¼Ó×Ü·Ö
-				$all_value += $content_allgrade[$i][3];    //  ÀÛ¼ÓÑ§·Ö(È¨Öµ)
+				$all_score += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);  //  ç´¯åŠ æ€»åˆ†
+				$all_value += $content_allgrade[$i][3];    //  ç´¯åŠ å­¦åˆ†(æƒå€¼)
 				
 				if ($content_allgrade[$i][4] >= 85 && $content_allgrade[$i][4] <= 100){
-					$all_GPA += 4.0;
+					$all_GPA += (4.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 70 && $content_allgrade[$i][4] < 85){
-					$all_GPA += 3.0;
+					$all_GPA += (3.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 60 && $content_allgrade[$i][4] < 70){
-					$all_GPA += 2.0;
+					$all_GPA += (2.0 * $content_allgrade[$i][3]);
 				}
 				$i++;
 				$all_number_of_lesson++;
+				$all_number_of_lesson_with_nopass++;
 			}
 		}
-		//¸ö±ğÑ§ÆÚ¼ÓÈ¨Æ½¾ù·ÖºÍGPAµÄ¼ÆËã
-		$i = 5;                       //array´Ó5¿ªÊ¼ÊÇ¿Î³Ì£¬¶¨ËÀÁË£¬²»ÄÜ¸Ä
-		//Ö÷ĞŞ¿Î³Ì
+		//ä¸ªåˆ«å­¦æœŸåŠ æƒå¹³å‡åˆ†å’ŒGPAçš„è®¡ç®—
+		$i = 5;                       //arrayä»5å¼€å§‹æ˜¯è¯¾ç¨‹ï¼Œå®šæ­»äº†ï¼Œä¸èƒ½æ”¹
+		//ä¸»ä¿®è¯¾ç¨‹
 		$total_score = 0;
 		$total_value = 0;
 		$total_GPA = 0;
-		$number_of_lesson = 0;        //Ö÷ĞŞ×Ü¿Î³ÌÊı
-		//¶ş×¨ÒµºÍ¸¨ĞŞ£¬content[$i][9] == 2
+		$number_of_lesson = 0;        //ä¸»ä¿®æ€»è¯¾ç¨‹æ•°
+		//äºŒä¸“ä¸šå’Œè¾…ä¿®ï¼Œcontent[$i][9] == 2
 		$total_score_fuxiu = 0;
 		$total_value_fuxiu = 0;
 		$total_GPA_fuxiu = 0;
-		$number_of_lesson_fuxiu = 0;  //¶ş×¨Òµ/¸¨ĞŞ¿Î³ÌÊı
-		//¼ÆËã¸ö±ğÑ§ÆÚµÄĞÅÏ¢
+		$number_of_lesson_fuxiu = 0;  //äºŒä¸“ä¸š/è¾…ä¿®è¯¾ç¨‹æ•°
+		//è®¡ç®—ä¸ªåˆ«å­¦æœŸçš„ä¿¡æ¯
 		while(isset($content[$i][8])){
-			if ($content[$i][5] === "µÚ¶ş¿ÎÌÃ" || $content[$i][5] === "ĞÂÉúÑĞÌÖ¿Î" || $content[$i][8] < 5){
+			if ($content[$i][5] == iconv("utf-8","gb2312//IGNORE","ç¬¬äºŒè¯¾å ‚") || $content[$i][5] === iconv("utf-8","gb2312//IGNORE","æ–°ç”Ÿç ”è®¨è¯¾") || $content[$i][8] < 60){
 				$i++;
 			}
 			else{
-				//´¦Àí¸¨ĞŞ/¶ş×¨Òµ
+				//å¤„ç†è¾…ä¿®/äºŒä¸“ä¸š
 				if ($content[$i][9] == 2){
-					$total_score_fuxiu += ($content[$i][8] * $content[$i][6]);  //  ÀÛ¼Ó×Ü·Ö
-					$total_value_fuxiu += $content[$i][6];    //  ÀÛ¼ÓÑ§·Ö(È¨Öµ)
-					$total_GPA_fuxiu += $content[$i][7];
+					$total_score_fuxiu += ($content[$i][8] * $content[$i][6]);  //  ç´¯åŠ æ€»åˆ†
+					$total_value_fuxiu += $content[$i][6];    //  ç´¯åŠ å­¦åˆ†(æƒå€¼)
+					$total_GPA_fuxiu += ($content[$i][7] * $content[$i][6]); //åŠ æƒæ€»ç»©ç‚¹
 					$i++;
 					$number_of_lesson_fuxiu++;
 				}  
-				//ÆÕÍ¨¿Î³Ì
+				//æ™®é€šè¯¾ç¨‹
 				if ($content[$i][9] == 0){
-					$total_score += ($content[$i][8] * $content[$i][6]);  //  ÀÛ¼Ó×Ü·Ö
-					$total_value += $content[$i][6];    //  ÀÛ¼ÓÑ§·Ö(È¨Öµ)
-					$total_GPA += $content[$i][7];
+					$total_score += ($content[$i][8] * $content[$i][6]);  //  ç´¯åŠ æ€»åˆ†
+					$total_value += $content[$i][6];    //  ç´¯åŠ å­¦åˆ†(æƒå€¼)
+					$total_GPA += ($content[$i][7] * $content[$i][6]); //åŠ æƒæ€»ç»©ç‚¹
 					$i++;
 					$number_of_lesson++;
 				}
@@ -170,51 +173,70 @@
 		$average_score = $total_score / $total_value;
 		$average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
 		echo'
-		<div class="weui_cells_title">Æ½¾ù·Ö</div>
+		<div class="weui_cells_title">è¯¾ç¨‹é€šè¿‡æƒ…å†µ</div>
 		<div class="weui_cells">
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>';
-		printf("ÄúÉÏ´óÑ§ÒÔÀ´×ÜµÄ¼ÓÈ¨Æ½¾ù·ÖÎª: %.2lf ·Ö",$all_score / $all_value);
+		printf("å·²é€šè¿‡è¯¾ç¨‹æ€»æ•°: %.2d ",$all_number_of_lesson);
 		echo'</p>
 		</div>
 		</div>
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>';
-		printf("ÄúÉÏ´óÑ§ÒÔÀ´×ÜµÄÆ½¾ùGPAÎª: %.2lf ",$all_GPA / $all_number_of_lesson);
+		printf("æœªé€šè¿‡è¯¾ç¨‹æ€»æ•°: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
+		echo'</p>
+		</div>
+		</div>
+		</div>
+		';
+		echo'
+		<div class="weui_cells_title">å¹³å‡åˆ†</div>
+		<div class="weui_cells">
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>';
+		printf("æ‚¨ä¸Šå¤§å­¦ä»¥æ¥æ€»çš„åŠ æƒå¹³å‡åˆ†ä¸º: %.2lf åˆ†",$all_score / $all_value);
 		echo'</p>
 		</div>
 		</div>
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>';
-		printf("Äú±¾Ñ§ÆÚµÄ¼ÓÈ¨Æ½¾ù·ÖÎª: %.2lf ·Ö",$average_score);
+		printf("æ‚¨ä¸Šå¤§å­¦ä»¥æ¥æ€»çš„å¹³å‡å­¦åˆ†ç»©ç‚¹ä¸º: %.2lf ",$all_GPA / $all_value);
+		echo'</p>
+		</div>
+		</div>
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>';
+		printf("æ‚¨æœ¬å­¦æœŸçš„åŠ æƒå¹³å‡åˆ†ä¸º: %.2lf åˆ†",$average_score);
 		echo'</p>
 		</div>
 		</div>
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 		<p>';
-		printf("Äú±¾Ñ§ÆÚµÄÆ½¾ù¼¨µãÎª: %.2lf",$total_GPA / $number_of_lesson);
+		printf("æ‚¨æœ¬å­¦æœŸçš„å¹³å‡å­¦åˆ†ç»©ç‚¹ä¸º: %.2lf",$total_GPA / $total_value);
 		echo'
 		</p>
 		</div>
 		</div>';
-		//¸¨ĞŞ/¶ş×¨Òµ¿Î³ÌĞÅÏ¢Êä³ö
+		//è¾…ä¿®/äºŒä¸“ä¸šè¯¾ç¨‹ä¿¡æ¯è¾“å‡º
 		if ($total_score_fuxiu > 0) {
 			echo'
 			<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary" id="average_score">
 			<p>';
-			printf("¸¨ĞŞ/¶ş×¨Òµ¿Î³ÌµÄ¼ÓÈ¨Æ½¾ù·ÖÎª: %.2lf ·Ö",$average_score_fuxiu);
+			printf("è¾…ä¿®/äºŒä¸“ä¸šè¯¾ç¨‹çš„åŠ æƒå¹³å‡åˆ†ä¸º: %.2lf åˆ†",$average_score_fuxiu);
 			echo'</p>
 			</div>
 			</div>
 			<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary" id="average_score">
+			<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 			<p>';
-			printf("¸¨ĞŞ/¶ş×¨Òµ¿Î³ÌµÄÆ½¾ù¼¨µãÎª %.2lf ·Ö",$total_GPA_fuxiu / $number_of_lesson_fuxiu);
+			printf("è¾…ä¿®/äºŒä¸“ä¸šè¯¾ç¨‹çš„å¹³å‡å­¦åˆ†ç»©ç‚¹ä¸º %.2lf åˆ†",$total_GPA_fuxiu / $total_value_fuxiu);
 			echo'</p>
 			</div>
 			</div>';
@@ -226,31 +248,31 @@
 		<script src="/js/require_score.js"></script>   
 		</body>
 		</html>';
-		//Êä³ö¿Î³ÌÃ÷Ï¸,Ö÷ĞŞ¿Î³Ì
-		echo '<div class="weui_cells_title">¿Î³ÌÃ÷Ï¸</div>';
+		//è¾“å‡ºè¯¾ç¨‹æ˜ç»†,ä¸»ä¿®è¯¾ç¨‹
+		echo '<div class="weui_cells_title">è¯¾ç¨‹æ˜ç»†</div>';
 		echo '<div class="weui_cells">';
 		$i = 5;
 		while(isset($content[$i][7])){   
 			if ($content[$i][9] == 0){
 				echo '<div class="weui_cell">';
 				echo '<div class="weui_cell_bd weui_cell_primary">';
-				echo $content[$i][3]."  ·ÖÊı: ".$content[$i][8]."   ¿Î³ÌÑ§·Ö: ".$content[$i][6];
+				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  åˆ†æ•°: ".$content[$i][8]."   è¯¾ç¨‹å­¦åˆ†: ".$content[$i][6];
 				echo '</div>';
 				echo '</div>';    
 			}  
 			$i++;
 		}   
 		echo '</div>';
-		//Êä³ö¸¨ĞŞ/¶ş×¨Òµ¿Î³ÌĞÅÏ¢
+		//è¾“å‡ºè¾…ä¿®/äºŒä¸“ä¸šè¯¾ç¨‹ä¿¡æ¯
 		if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
-			echo '<div class="weui_cells_title">¸¨ĞŞ/¶ş×¨Òµ¿Î³Ì</div>';
+			echo '<div class="weui_cells_title">è¾…ä¿®/äºŒä¸“ä¸šè¯¾ç¨‹</div>';
 			echo '<div class="weui_cells">';
 			$i = 5;
 			while(isset($content[$i][7])){
 				if ($content[$i][9] == 2){
 					echo '<div class="weui_cell">';
 					echo '<div class="weui_cell_bd weui_cell_primary">';
-					echo $content[$i][3]."  ·ÖÊı: ".$content[$i][8]."   ¿Î³ÌÑ§·Ö: ".$content[$i][6];
+					echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  åˆ†æ•°: ".$content[$i][8]."   è¯¾ç¨‹å­¦åˆ†: ".$content[$i][6];
 					echo '</div>';
 					echo '</div>';    
 				}     
@@ -258,18 +280,18 @@
 			}   
 			echo '</div>';       
 		}
-		echo '<a class="weui_btn weui_btn_default" href="javascript:;" onClick="location.href=document.referrer">·µ»Ø</a>';
+		echo '<a class="weui_btn weui_btn_default" href="javascript:;" onClick="location.href=document.referrer">è¿”å›</a>';
 	}
-	//table×ªarray
+	//tableè½¬array
     function get_td_array($table) {
         $table = preg_replace("'<table[^>]*?>'si","",$table);
         $table = preg_replace("'<tr[^>]*?>'si","",$table);
         $table = preg_replace("'<td[^>]*?>'si","",$table);
         $table = str_replace("</tr>","{tr}",$table);
         $table = str_replace("</td>","{td}",$table);
-            //È¥µô HTML ±ê¼Ç
+            //å»æ‰ HTML æ ‡è®°
         $table = preg_replace("'<[/!]*?[^<>]*?>'si","",$table);
-            //È¥µô¿Õ°××Ö·û
+            //å»æ‰ç©ºç™½å­—ç¬¦
         $table = preg_replace("'([rn])[s]+'","",$table);
         $table = preg_replace('/&nbsp;/',"",$table);
         $table = str_replace(" ","",$table);
