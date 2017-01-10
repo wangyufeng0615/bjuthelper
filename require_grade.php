@@ -98,7 +98,7 @@
 		   'ddlXN'=>$current_year,  //当前学年
 		   'ddlXQ'=>$current_term,  //当前学期
 		   'ddl_kcxz'=>'',
-		   'btn_zg'=>'%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //不知道是啥
+		   'btn_zg'=>'%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //课程最高成绩-gbk
 		   );
 		$content_allgrade=login_post($url2,http_build_query($post_allgrade)); //获取原始数据
 		$content_allgrade=get_td_array($content_allgrade);    //table转array
@@ -108,10 +108,12 @@
 		$all_value = 0; //总的学分权值
 		$all_GPA = 0;   //总的GPA*分数
 		$all_number_of_lesson = 0;  //总的课程数
+		$all_number_of_lesson_with_nopass = 0; //包含未过课程的总数
 		//计算总和的东西，学分/GPA
 		while(isset($content_allgrade[$i][4])){
-			//不计算第二课堂和新生研讨课以及0分课程
-			if ($content_allgrade[$i][5] === iconv("gb2312","utf-8//IGNORE","第二课堂") || $content_allgrade[$i][5] == iconv("gb2312","utf-8//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
+			//不计算第二课堂和新生研讨课以及未通过课程
+			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
+				if ($content_allgrade[$i][4] < 60) $all_number_of_lesson_with_nopass++;
 				$i++;
 			}
 			else{
@@ -129,6 +131,7 @@
 				}
 				$i++;
 				$all_number_of_lesson++;
+				$all_number_of_lesson_with_nopass++;
 			}
 		}
 		//个别学期加权平均分和GPA的计算
@@ -145,7 +148,7 @@
 		$number_of_lesson_fuxiu = 0;  //二专业/辅修课程数
 		//计算个别学期的信息
 		while(isset($content[$i][8])){
-			if ($content[$i][5] === iconv("gb2312","utf-8//IGNORE","第二课堂") || $content[$i][5] === iconv("gb2312","utf-8//IGNORE","新生研讨课") || $content[$i][8] < 60){
+			if ($content[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content[$i][5] === iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content[$i][8] < 60){
 				$i++;
 			}
 			else{
@@ -169,6 +172,25 @@
 		}
 		$average_score = $total_score / $total_value;
 		$average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
+		echo'
+		<div class="weui_cells_title">课程通过情况</div>
+		<div class="weui_cells">
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>';
+		printf("已通过课程总数: %.2d ",$all_number_of_lesson);
+		echo'</p>
+		</div>
+		</div>
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>';
+		printf("未通过课程总数: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
+		echo'</p>
+		</div>
+		</div>
+		</div>
+		';
 		echo'
 		<div class="weui_cells_title">平均分</div>
 		<div class="weui_cells">
@@ -212,7 +234,7 @@
 			</div>
 			</div>
 			<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary" id="average_score">
+			<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 			<p>';
 			printf("辅修/二专业课程的平均学分绩点为 %.2lf 分",$total_GPA_fuxiu / $total_value_fuxiu);
 			echo'</p>
