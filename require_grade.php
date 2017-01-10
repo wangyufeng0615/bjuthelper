@@ -106,7 +106,7 @@
 		$i = 5;         //从array[5]开始是有效信息
 		$all_score = 0; //总的加权*分数
 		$all_value = 0; //总的学分权值
-		$all_GPA = 0;   //总的GPA
+		$all_GPA = 0;   //总的GPA*分数
 		$all_number_of_lesson = 0;  //总的课程数
 		//计算总和的东西，学分/GPA
 		while(isset($content_allgrade[$i][4])){
@@ -119,13 +119,13 @@
 				$all_value += $content_allgrade[$i][3];    //  累加学分(权值)
 				
 				if ($content_allgrade[$i][4] >= 85 && $content_allgrade[$i][4] <= 100){
-					$all_GPA += 4.0;
+					$all_GPA += (4.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 70 && $content_allgrade[$i][4] < 85){
-					$all_GPA += 3.0;
+					$all_GPA += (3.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 60 && $content_allgrade[$i][4] < 70){
-					$all_GPA += 2.0;
+					$all_GPA += (2.0 * $content_allgrade[$i][3]);
 				}
 				$i++;
 				$all_number_of_lesson++;
@@ -153,7 +153,7 @@
 				if ($content[$i][9] == 2){
 					$total_score_fuxiu += ($content[$i][8] * $content[$i][6]);  //  累加总分
 					$total_value_fuxiu += $content[$i][6];    //  累加学分(权值)
-					$total_GPA_fuxiu += $content[$i][7];
+					$total_GPA_fuxiu += ($content[$i][7] * $content[$i][6]); //加权总绩点
 					$i++;
 					$number_of_lesson_fuxiu++;
 				}  
@@ -161,7 +161,7 @@
 				if ($content[$i][9] == 0){
 					$total_score += ($content[$i][8] * $content[$i][6]);  //  累加总分
 					$total_value += $content[$i][6];    //  累加学分(权值)
-					$total_GPA += $content[$i][7];
+					$total_GPA += ($content[$i][7] * $content[$i][6]); //加权总绩点
 					$i++;
 					$number_of_lesson++;
 				}
@@ -182,7 +182,7 @@
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>';
-		printf("您上大学以来总的平均GPA为: %.2lf ",$all_GPA / $all_number_of_lesson);
+		printf("您上大学以来总的平均学分绩点为: %.2lf ",$all_GPA / $all_value);
 		echo'</p>
 		</div>
 		</div>
@@ -196,7 +196,7 @@
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 		<p>';
-		printf("您本学期的平均绩点为: %.2lf",$total_GPA / $number_of_lesson);
+		printf("您本学期的平均学分绩点为: %.2lf",$total_GPA / $total_value);
 		echo'
 		</p>
 		</div>
@@ -214,7 +214,7 @@
 			<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary" id="average_score">
 			<p>';
-			printf("辅修/二专业课程的平均绩点为 %.2lf 分",$total_GPA_fuxiu / $number_of_lesson_fuxiu);
+			printf("辅修/二专业课程的平均学分绩点为 %.2lf 分",$total_GPA_fuxiu / $total_value_fuxiu);
 			echo'</p>
 			</div>
 			</div>';
