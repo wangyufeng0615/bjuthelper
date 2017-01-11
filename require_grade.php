@@ -112,8 +112,8 @@
 		//计算总和的东西，学分/GPA
 		while(isset($content_allgrade[$i][4])){
 			//不计算第二课堂和新生研讨课以及未通过课程
-			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
-				if ($content_allgrade[$i][4] < 60) $all_number_of_lesson_with_nopass++;
+			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
+				if ($content_allgrade[$i][4] < 60 && is_integer($content_allgrade[$i][4])) $all_number_of_lesson_with_nopass++;
 				$i++;
 			}
 			else{
@@ -148,7 +148,7 @@
 		$number_of_lesson_fuxiu = 0;  //二专业/辅修课程数
 		//计算个别学期的信息
 		while(isset($content[$i][8])){
-			if ($content[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content[$i][5] === iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content[$i][8] < 60){
+			if ($content[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content[$i][3] === iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content[$i][8] < 60){
 				$i++;
 			}
 			else{
@@ -256,7 +256,7 @@
 			if ($content[$i][9] == 0){
 				echo '<div class="weui_cell">';
 				echo '<div class="weui_cell_bd weui_cell_primary">';
-				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".$content[$i][8]."   课程学分: ".$content[$i][6];
+				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".iconv("gb2312","utf-8//IGNORE",$content[$i][8])."   课程学分: ".$content[$i][6];
 				echo '</div>';
 				echo '</div>';    
 			}  
