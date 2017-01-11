@@ -5,7 +5,9 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<title>成绩查询结果</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
+	<link rel="stylesheet" href="style/accordion.css">
 </head>
+<body>
 
 <?php 
     session_start();
@@ -134,6 +136,7 @@
 				$all_number_of_lesson_with_nopass++;
 			}
 		}
+		$total_lesson_count = $i-5;
 		//个别学期加权平均分和GPA的计算
 		$i = 5;                       //array从5开始是课程，定死了，不能改
 		//主修课程
@@ -172,25 +175,29 @@
 		}
 		$average_score = $total_score / $total_value;
 		$average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
+		$term_lesson_count = $i-5;
 		echo'
-		<div class="weui_cells_title">课程通过情况</div>
-		<div class="weui_cells">
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<div class="weui_cells_title">课程统计情况</div>
+		<div class="container">
+		<div class="weui_accordion_box">
+		<div class="weui_accordion_title">
+		';
+		printf("本学期已出分课程数: %.2d ",$term_lesson_count);
+		echo'
+		</div>
+		<div class="weui_accordion_content">
 		<p>';
-		printf("已通过课程总数: %.2d ",$all_number_of_lesson);
-		echo'</p>
-		</div>
-		</div>
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		printf("已出分课程总数: %.2d ",$total_lesson_count);
+		echo '
+		</p>
 		<p>';
 		printf("未通过课程总数: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
-		echo'</p>
+		echo '
+		</p>
 		</div>
 		</div>
-		</div>
-		';
+		</div>';
+
 		echo'
 		<div class="weui_cells_title">平均分</div>
 		<div class="weui_cells">
@@ -245,7 +252,9 @@
 		</div> 
 		<!-- <script src="weui/dist/example/zepto.min.js"></script> -->
 		<!-- <script src="weui/dist/example/toast.js"></script> -->
-		<script src="/js/require_score.js"></script>   
+		<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+		<script src="/js/accordion.js"></script>
+		<script src="/js/require_score.js"></script>
 		</body>
 		</html>';
 		//输出课程明细,主修课程
