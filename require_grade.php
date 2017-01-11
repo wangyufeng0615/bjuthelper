@@ -187,11 +187,11 @@
 		</div>
 		<div class="weui_accordion_content">
 		<p>';
-		printf("已出分课程总数: %.2d ",$total_lesson_count);
+		printf("大学总已出分课程数: %.2d ",$total_lesson_count);
 		echo '
 		</p>
 		<p>';
-		printf("未通过课程总数: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
+		printf("大学总未通过课程数: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
 		echo '
 		</p>
 		</div>
