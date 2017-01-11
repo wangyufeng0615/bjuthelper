@@ -115,7 +115,7 @@
 		while(isset($content_allgrade[$i][4])){
 			//不计算第二课堂和新生研讨课以及未通过课程
 			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
-				if ($content_allgrade[$i][4] < 60 && is_integer($content_allgrade[$i][4])) $all_number_of_lesson_with_nopass++;
+				if ($content_allgrade[$i][4] < 60 && is_numeric($content_allgrade[$i][4])) $all_number_of_lesson_with_nopass++;
 				$i++;
 			}
 			else{
