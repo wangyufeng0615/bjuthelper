@@ -227,6 +227,9 @@
 		<p>';
 		printf("您本学期的平均学分绩点(GPA)为: %.2lf",$total_GPA / $total_value);
 		echo'
+		</p>
+		</div>
+		</div>
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>
@@ -234,6 +237,7 @@
 		</p>
 		</div>
 		</div>';
+		
 		//辅修/二专业课程信息输出
 		if ($total_score_fuxiu > 0) {
 			echo'
