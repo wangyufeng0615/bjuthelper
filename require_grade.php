@@ -227,10 +227,10 @@
 		<p>';
 		printf("您本学期的平均学分绩点(GPA)为: %.2lf",$total_GPA / $total_value);
 		echo'
-		
-		<br>
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>
 		<i class="weui_icon_info"></i> GPA算法已更新为带权平均算法，和教务一致。
-		
 		</p>
 		</div>
 		</div>';
