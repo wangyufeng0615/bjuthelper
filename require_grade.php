@@ -211,7 +211,7 @@
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
 		<p>';
-		printf("您上大学以来总的平均学分绩点为: %.2lf ",$all_GPA / $all_value);
+		printf("您上大学以来总的平均学分绩点(GPA)为: %.2lf ",$all_GPA / $all_value);
 		echo'</p>
 		</div>
 		</div>
@@ -225,11 +225,21 @@
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 		<p>';
-		printf("您本学期的平均学分绩点为: %.2lf",$total_GPA / $total_value);
+		printf("您本学期的平均学分绩点(GPA)为: %.2lf",$total_GPA / $total_value);
 		echo'
 		</p>
 		</div>
+		</div>
+		<div class="weui_cell">
+		<div class="weui_cell_bd weui_cell_primary" id="average_score">
+		<p>
+		<i class="weui_icon_info"></i> GPA算法已更新为带权平均算法，和教务一致。
+		</p>
+		</div>
+		</div>
+		</div>
 		</div>';
+		
 		//辅修/二专业课程信息输出
 		if ($total_score_fuxiu > 0) {
 			echo'
