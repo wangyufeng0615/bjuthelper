@@ -236,6 +236,8 @@
 		<i class="weui_icon_info"></i> GPA算法已更新为带权平均算法，和教务一致。
 		</p>
 		</div>
+		</div>
+		</div>
 		</div>';
 		
 		//辅修/二专业课程信息输出
