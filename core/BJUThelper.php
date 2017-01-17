@@ -23,6 +23,7 @@ class BJUThelper
     private $account = '';
     private $password = '';
 
+
     /**
      * BJUThelper constructor.
      * @param $account string 学生用户名
@@ -40,7 +41,7 @@ class BJUThelper
         //如果登陆失败，抛出异常
         if (!$this->login()) throw new Exception("您的账号 or 密码输入错误");
 
-        $this->get_viewstate();
+        $this->viewstate = $this->get_viewstate();
 
     }
 
@@ -68,6 +69,7 @@ class BJUThelper
         } //match the cookie
         curl_close($ch);
         $this->cookie = $cookie;
+        //echo 'myCookie = ' . $cookie;
         return $result;
     }
 
@@ -99,6 +101,8 @@ class BJUThelper
         if (!preg_match("/xs_main/", $con2)) {
             return false;
         }
+//        echo $con2;
+
         return true;
     }
 
@@ -113,7 +117,10 @@ class BJUThelper
         // $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
         $url = $this->score_url;
         $viewstate = $this->connect($url, '');
+//        echo '$viewstate = ' . $viewstate;
         preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
+//        echo '$vs = ' . json_encode($vs);
+//        echo '$vs[1][0] = ' . $vs[1][0];
         return $vs[1][0];  //返回__VIEWSTATE
     }
 
@@ -138,7 +145,9 @@ class BJUThelper
             'btn_xq' => '%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
         );
         $content = $this->connect($url, http_build_query($post)); //获取原始数据
+//        echo '$content=' . $content;
         $content = $this->get_td_array($content);    //table转array
+//        echo '$array=' . json_encode($content);
         return $content;
     }
 
@@ -159,8 +168,8 @@ class BJUThelper
             'ddl_kcxz' => '',
             'btn_zg' => '%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //课程最高成绩-gbk
         );
-        $content_allgrade = login_post($url, http_build_query($post_allgrade)); //获取原始数据
-        $content_allgrade = get_td_array($content_allgrade);    //table转array
+        $content_allgrade = $this->connect($url, http_build_query($post_allgrade)); //获取原始数据
+        $content_allgrade = $this->get_td_array($content_allgrade);    //table转array
         return $content_allgrade;
     }
 
@@ -239,37 +248,38 @@ class BJUThelper
                 }
             }
         }
-        $average_score = $total_score / $total_value;
-        $average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
+
+        $average_score_all = $all_value !== 0 ? $all_score / $all_value : 0;
+        $average_score_term = $total_value !== 0 ? $total_score / $total_value : 0;
+        $average_score_fuxiu = $total_value_fuxiu !== 0 ? $total_score_fuxiu / $total_value_fuxiu : 0;
         $term_lesson_count = $i - 5;
 
 
         $result = array(
-            "grade_term" => $grade_term,
-            "grade_total" => $grade_total,
+            "grade_term" => $grade_term,                                                    //学习成绩数据集
+            "grade_total" => $grade_total,                                                  //总成绩数据集
 
-            "all_score" => $all_score,
-            "all_value" => $all_value,
-            "all_GPA" => $all_GPA,
-            "all_number_of_lesson" => $all_number_of_lesson,
-            "all_number_of_lesson_with_nopass" => $all_number_of_lesson_with_nopass,
+            "all_score" => $all_score,                                                      //总的加权*分数
+            "all_value" => $all_value,                                                      //总的学分权值
+            "all_GPA" => $all_GPA,                                                          //总的GPA*分数
+            "all_number_of_lesson" => $all_number_of_lesson,                              //总的课程数
+            "all_number_of_lesson_with_nopass" => $all_number_of_lesson_with_nopass,    //包含未过课程的总数
             "total_lesson_count" => $total_lesson_count,
 
-            "total_score" => $total_score,
-            "total_value" => $total_value,
-            "total_GPA" => $total_GPA,
-            "number_of_lesson" => $number_of_lesson,
-            "total_score_fuxiu" => $total_score_fuxiu,
+            "total_score" => $total_score,                                                //学期累加总分
+            "total_value" => $total_value,                                                //学期累加学分(权值)
+            "total_GPA" => $total_GPA,                                                    //学期GPA*分数
+            "number_of_lesson" => $number_of_lesson,                                     //主修总课程数
+            "total_score_fuxiu" => $total_score_fuxiu,                                   //二专业和辅修
             "total_value_fuxiu" => $total_value_fuxiu,
             "total_GPA_fuxiu" => $total_GPA_fuxiu,
-            "number_of_lesson_fuxiu" => $number_of_lesson_fuxiu,
+            "number_of_lesson_fuxiu" => $number_of_lesson_fuxiu,                        //二专业/辅修课程数
 
-            "average_score" => $average_score,
-            "average_score_fuxiu" => $average_score_fuxiu,
-            "term_lesson_count" => $term_lesson_count,
-
+            "average_score_all" => $average_score_all,                                //总平均分
+            "average_score_term" => $average_score_term,                                //学期平均分
+            "average_score_fuxiu" => $average_score_fuxiu,                              //辅修平均分
+            "term_lesson_count" => $term_lesson_count,                                  //学期课程总数
         );
-
 
         return $result;
     }
@@ -301,6 +311,17 @@ class BJUThelper
             array_push($td_array, $td);
         }
         return $td_array;
+    }
+
+
+    /**将gbk数组转换为utf-8 Json
+     * @param $arr array
+     * @return string
+     */
+    public static function to_json($arr)
+    {
+        $ret = eval('return ' . iconv("gbk", "utf-8", var_export($arr, true) . ';'));
+        return json_encode($ret);
     }
 
 }
