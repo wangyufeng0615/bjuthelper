@@ -252,6 +252,11 @@ class BJUThelper
         $average_score_all = $all_value !== 0 ? $all_score / $all_value : 0;
         $average_score_term = $total_value !== 0 ? $total_score / $total_value : 0;
         $average_score_fuxiu = $total_value_fuxiu !== 0 ? $total_score_fuxiu / $total_value_fuxiu : 0;
+
+        $average_GPA_all = $all_value !== 0 ? $all_GPA / $all_value : 0;
+        $average_GPA_term = $total_value !== 0 ? $total_GPA / $total_value : 0;
+        $average_GPA_fuxiu = $total_value_fuxiu !== 0 ? $total_GPA_fuxiu / $total_value_fuxiu : 0;
+
         $term_lesson_count = $i - 5;
 
 
@@ -275,9 +280,14 @@ class BJUThelper
             "total_GPA_fuxiu" => $total_GPA_fuxiu,
             "number_of_lesson_fuxiu" => $number_of_lesson_fuxiu,                        //二专业/辅修课程数
 
-            "average_score_all" => $average_score_all,                                //总平均分
+            "average_score_all" => $average_score_all,                                  //总平均分
             "average_score_term" => $average_score_term,                                //学期平均分
             "average_score_fuxiu" => $average_score_fuxiu,                              //辅修平均分
+
+            "average_GPA_all" => $average_GPA_all,                                  //总加权GPA
+            "average_GPA_term" => $average_GPA_term,                                //学期加权GPA
+            "average_GPA_fuxiu" => $average_GPA_fuxiu,                              //辅修加权GPA
+
             "term_lesson_count" => $term_lesson_count,                                  //学期课程总数
         );
 
