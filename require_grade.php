@@ -41,7 +41,7 @@
     $current_term=$_POST['current_term'];
     //$code= $_POST['verify_code'];
     //$cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
-    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
+    $url="http://172.21.96.63/default_vsso.aspx";  //教务地址
     //$con1=login_post($url,$cookie,'');               //登陆
     //preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //获取__VIEWSTATE字段并存到$view数组中
     //为登陆准备的POST数据
@@ -74,7 +74,7 @@
 		// preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
 		// print_r($xm);
 		// $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-		$url2="http://gdjwgl.bjut.edu.cn/xscjcx.aspx?xh=".$_SESSION['xh'];
+		$url2="http://172.21.96.63/xscjcx.aspx?xh=".$_SESSION['xh'];
 		$viewstate=login_post($url2,'');
 		preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
 		$state=$vs[1][0];  //$state存放一会post的__VIEWSTATE
