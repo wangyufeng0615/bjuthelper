@@ -76,7 +76,7 @@
 		// $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
 		
 		//$url2="http://172.21.96.63/xscjcx.aspx?xh=".$_SESSION['xh'];
-		$url2="http://172.21.96.63/xscjcx_dq.aspx?xh="..$_SESSION['xh'];
+		$url2="http://172.21.96.63/xscjcx_dq.aspx?xh=".$_SESSION['xh'];
 		
 		$viewstate=login_post($url2,'');
 		preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
