@@ -281,7 +281,7 @@
 			if ($content[$i][9] == 0){
 				echo '<div class="weui_cell">';
 				echo '<div class="weui_cell_bd weui_cell_primary">';
-				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".iconv("gb2312","utf-8//IGNORE",$content[$i][8])."   课程学分: ".$content[$i][6];
+				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".iconv("gb2312","utf-8//IGNORE",$content[$i][7])."   课程学分: ".$content[$i][6];
 				echo '</div>';
 				echo '</div>';    
 			}  
