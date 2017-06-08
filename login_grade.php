@@ -129,6 +129,10 @@
 	</form>		
 
 	<article class="weui_article">
+	
+	<section>
+<b><div style="color:red; font-size:14px;">修复进度：已经可以查询当前学期的成绩。其他学期成绩、总加权暂时无法查询。</div></b>
+	</section>	
 	<section>
 <b><div style="color:red; font-size:14px;">由于学校对教务网站进行了升级，野生工大助手暂时无法使用，请见谅。相关升级进行中。</div></b>
 	</section>
