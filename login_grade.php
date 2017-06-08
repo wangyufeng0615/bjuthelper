@@ -129,6 +129,9 @@
 	</form>		
 
 	<article class="weui_article">
+	<section>
+<b><div style="color:red; font-size:14px;">由于学校对教务网站进行了升级，野生工大助手暂时无法使用，请见谅。相关升级进行中。</div></b>
+	</section>
         <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
 		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对<b>没报二专业/辅修</b>的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br /><b>注意：</b>数据仅供参考，请以教务系统为准。<br /><br />
 		<section>
