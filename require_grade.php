@@ -74,23 +74,28 @@
 		// preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
 		// print_r($xm);
 		// $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-		$url2="http://172.21.96.63/xscjcx.aspx?xh=".$_SESSION['xh'];
+		
+		//$url2="http://172.21.96.63/xscjcx.aspx?xh=".$_SESSION['xh'];
+		$url2="http://172.21.96.63/xscjcx_dq.aspx?xh="..$_SESSION['xh'];
+		
 		$viewstate=login_post($url2,'');
 		preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
 		$state=$vs[1][0];  //$state存放一会post的__VIEWSTATE
+		
 		//查询某一学期的成绩
 		$post=array(
 		 '__EVENTTARGET'=>'',
 		 '__EVENTARGUMENT'=>'',
 		 '__VIEWSTATE'=>$state,
-		 'hidLanguage'=>'',
-		   'ddlXN'=>$current_year,  //当前学年
-		   'ddlXQ'=>$current_term,  //当前学期
-		   'ddl_kcxz'=>'',
-		   'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
+		 //'hidLanguage'=>'',
+		   'ddlxn'=>$current_year,  //当前学年
+		   'ddlxq'=>$current_term,  //当前学期
+		   //'ddl_kcxz'=>'',
+		   //'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
 		   );
 		$content=login_post($url2,http_build_query($post)); //获取原始数据
 		$content=get_td_array($content);    //table转array
+		
 		//查询总成绩
 		$post_allgrade=array(
 		 '__EVENTTARGET'=>'',
@@ -104,6 +109,7 @@
 		   );
 		$content_allgrade=login_post($url2,http_build_query($post_allgrade)); //获取原始数据
 		$content_allgrade=get_td_array($content_allgrade);    //table转array
+		
 		//计算总的加权分数和总的GPA
 		$i = 5;         //从array[5]开始是有效信息
 		$all_score = 0; //总的加权*分数
