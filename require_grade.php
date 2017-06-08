@@ -144,7 +144,7 @@
 		}
 		$total_lesson_count = $i-5;
 		//个别学期加权平均分和GPA的计算
-		$i = 5;                       //array从5开始是课程，定死了，不能改
+		$i = 4;                       //array从5开始是课程，定死了，不能改
 		//主修课程
 		$total_score = 0;
 		$total_value = 0;
