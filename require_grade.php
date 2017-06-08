@@ -111,7 +111,7 @@
 		$content_allgrade=get_td_array($content_allgrade);    //table转array
 		
 		//计算总的加权分数和总的GPA
-		$i = 5;         //从array[5]开始是有效信息
+		$i = 4;         //从array[5]开始是有效信息
 		$all_score = 0; //总的加权*分数
 		$all_value = 0; //总的学分权值
 		$all_GPA = 0;   //总的GPA*分数
@@ -276,7 +276,7 @@
 		//输出课程明细,主修课程
 		echo '<div class="weui_cells_title">课程明细</div>';
 		echo '<div class="weui_cells">';
-		$i = 5;
+		$i = 4;
 		while(isset($content[$i][7])){   
 			if ($content[$i][9] == 0){
 				echo '<div class="weui_cell">';
@@ -292,7 +292,7 @@
 		if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
 			echo '<div class="weui_cells_title">辅修/二专业课程</div>';
 			echo '<div class="weui_cells">';
-			$i = 5;
+			$i = 4;
 			while(isset($content[$i][7])){
 				if ($content[$i][9] == 2){
 					echo '<div class="weui_cell">';
