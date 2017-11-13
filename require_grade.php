@@ -84,11 +84,11 @@
 		 '__EVENTTARGET'=>'',
 		 '__EVENTARGUMENT'=>'',
 		 '__VIEWSTATE'=>$state,
-		 //'hidLanguage'=>'',
-		   'ddlxn'=>$current_year,  //当前学年
-		   'ddlxq'=>$current_term,  //当前学期
-		   //'ddl_kcxz'=>'',
-		   //'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
+		 'hidLanguage'=>'',
+		   'ddlXN'=>$current_year,  //当前学年
+		   'ddlXQ'=>$current_term,  //当前学期
+		   'ddl_kcxz'=>'',
+		   'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
 		   );
 		$content=login_post($url2,http_build_query($post)); //获取原始数据
 		$content=get_td_array($content);    //table转array
