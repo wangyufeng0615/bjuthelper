@@ -61,6 +61,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_year">
+                        <option value="2017-2018">2017-2018</option>
                         <option value="2016-2017">2016-2017</option>
                         <option value="2015-2016">2015-2016</option>
                         <option value="2014-2015">2014-2015</option>
@@ -120,7 +121,7 @@
             //Loading旋转菊花
             $(function() {
                 $('#showLoadingToast').click(function() {
-                    $('#loadingToast').fadeIn().delay(5000).fadeOut();
+                    $('#loadingToast').fadeIn().delay(10000).fadeOut();
                 });
             })
         </script>
@@ -129,20 +130,21 @@
 	</form>		
 
 	<article class="weui_article">
-	
+<!--	
 	<section>
 <b><div style="color:red; font-size:14px;">修复进度：已经可以查询当前学期的成绩。其他学期成绩、总加权暂时无法查询。</div></b>
 	</section>	
 	<section>
 <b><div style="color:red; font-size:14px;">由于学校对教务网站进行了升级，野生工大助手暂时无法使用，请见谅。相关升级进行中。</div></b>
-	</section>
+    </section>
+-->
         <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
 		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对<b>没报二专业/辅修</b>的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br /><b>注意：</b>数据仅供参考，请以教务系统为准。<br /><br />
 		<section>
 如数据有问题(或者网站打不开了)请联系<a href="http://www.wangyufeng.org">王雨峰</a><br />
 Contact: alanwang424@gmail.com<br />
-或者<a href="http://www.devchen.com">陈仕玺</a><br />
-Contact: i@devChen.com<br />
+或者<a href="http://www.coder17.com">陈仕玺</a><br />
+Contact: admin@coder17.com<br />
 代码重构 by 马文瑞<br />
 <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
 <br />
