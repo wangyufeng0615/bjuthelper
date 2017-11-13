@@ -41,7 +41,7 @@
     $current_term=$_POST['current_term'];
     //$code= $_POST['verify_code'];
     //$cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
-    $url="http://172.21.96.63/default_vsso.aspx";  //教务地址
+    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
     //$con1=login_post($url,$cookie,'');               //登陆
     //preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //获取__VIEWSTATE字段并存到$view数组中
     //为登陆准备的POST数据
@@ -74,10 +74,7 @@
 		// preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
 		// print_r($xm);
 		// $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-		
-		//$url2="http://172.21.96.63/xscjcx.aspx?xh=".$_SESSION['xh'];
-		$url2="http://172.21.96.63/xscjcx_dq.aspx?xh=".$_SESSION['xh'];
-		
+		$url2="http://gdjwgl.bjut.edu.cn/xscjcx.aspx?xh=".$_SESSION['xh'];
 		$viewstate=login_post($url2,'');
 		preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $viewstate, $vs);
 		$state=$vs[1][0];  //$state存放一会post的__VIEWSTATE
@@ -111,7 +108,7 @@
 		$content_allgrade=get_td_array($content_allgrade);    //table转array
 		
 		//计算总的加权分数和总的GPA
-		$i = 4;         //从array[5]开始是有效信息
+		$i = 5;         //从array[5]开始是有效信息
 		$all_score = 0; //总的加权*分数
 		$all_value = 0; //总的学分权值
 		$all_GPA = 0;   //总的GPA*分数
@@ -144,7 +141,7 @@
 		}
 		$total_lesson_count = $i-5;
 		//个别学期加权平均分和GPA的计算
-		$i = 4;                       //array从5开始是课程，定死了，不能改
+		$i = 5;                       //array从5开始是课程，定死了，不能改
 		//主修课程
 		$total_score = 0;
 		$total_value = 0;
@@ -276,12 +273,12 @@
 		//输出课程明细,主修课程
 		echo '<div class="weui_cells_title">课程明细</div>';
 		echo '<div class="weui_cells">';
-		$i = 4;
+		$i = 5;
 		while(isset($content[$i][7])){   
 			if ($content[$i][9] == 0){
 				echo '<div class="weui_cell">';
 				echo '<div class="weui_cell_bd weui_cell_primary">';
-				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".iconv("gb2312","utf-8//IGNORE",$content[$i][7])."   课程学分: ".$content[$i][6];
+				echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".iconv("gb2312","utf-8//IGNORE",$content[$i][8])."   课程学分: ".$content[$i][6];
 				echo '</div>';
 				echo '</div>';    
 			}  
@@ -292,7 +289,7 @@
 		if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
 			echo '<div class="weui_cells_title">辅修/二专业课程</div>';
 			echo '<div class="weui_cells">';
-			$i = 4;
+			$i = 5;
 			while(isset($content[$i][7])){
 				if ($content[$i][9] == 2){
 					echo '<div class="weui_cell">';
