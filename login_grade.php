@@ -139,12 +139,16 @@
     </section>
 -->
         <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
-		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对<b>没报二专业/辅修</b>的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br /><b>注意：</b>数据仅供参考，请以教务系统为准。<br /><br />
+		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对<b>没报二专业/辅修</b>的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br /><b>注意：</b>数据仅供参考，请以教务系统为准。<br />
+
+			<br/>
+			<br />
 		<section>
 如数据有问题(或者网站打不开了)请联系<a href="http://www.wangyufeng.org">王雨峰</a><br />
 Contact: alanwang424@gmail.com<br />
 或者<a href="http://www.coder17.com">陈仕玺</a><br />
 Contact: admin@coder17.com<br />
+网站如果崩了请上微博艾特 <a href="https://weibo.com/TojoSaiki">@東城十七</a>，有奇效。 <br/>
 代码重构 by 马文瑞<br />
 <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
 <br />
