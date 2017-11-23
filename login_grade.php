@@ -148,7 +148,7 @@
 Contact: alanwang424@gmail.com<br />
 或者<a href="http://www.coder17.com">陈仕玺</a><br />
 Contact: admin@coder17.com<br />
-<font size="10">网站如果崩了请上微博艾特 <a href="https://weibo.com/TojoSaiki">@東城十七</a>，有奇效。 </font><br/>
+<font size="3">网站如果崩了请上微博艾特 <a href="https://weibo.com/TojoSaiki">@東城十七</a>，有奇效。 </font><br/>
 代码重构 by 马文瑞<br />
 <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
 <br />
