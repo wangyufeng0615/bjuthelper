@@ -166,6 +166,14 @@
 					$i++;
 					$number_of_lesson_fuxiu++;
 				}  
+				//辅修
+				if ($content[$i][9] == 1){
+					$total_score_fuxiu += ($content[$i][8] * $content[$i][6]);  //  累加总分
+					$total_value_fuxiu += $content[$i][6];    //  累加学分(权值)
+					$total_GPA_fuxiu += ($content[$i][7] * $content[$i][6]); //加权总绩点
+					$i++;
+					$number_of_lesson_fuxiu++;
+				}  
 				//普通课程
 				if ($content[$i][9] == 0){
 					$total_score += ($content[$i][8] * $content[$i][6]);  //  累加总分
@@ -267,9 +275,7 @@
 		<!-- <script src="weui/dist/example/toast.js"></script> -->
 		<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 		<script src="/js/accordion.js"></script>
-		<script src="/js/require_score.js"></script>
-		</body>
-		</html>';
+		<script src="/js/require_score.js"></script>';
 		//输出课程明细,主修课程
 		echo '<div class="weui_cells_title">课程明细</div>';
 		echo '<div class="weui_cells">';
@@ -292,6 +298,14 @@
 			$i = 5;
 			while(isset($content[$i][7])){
 				if ($content[$i][9] == 2){
+					echo '<div class="weui_cell">';
+					echo '<div class="weui_cell_bd weui_cell_primary">';
+					echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".$content[$i][8]."   课程学分: ".$content[$i][6];
+					echo '</div>';
+					echo '</div>';    
+				}     
+				//辅修信息
+				if ($content[$i][9] == 1){
 					echo '<div class="weui_cell">';
 					echo '<div class="weui_cell_bd weui_cell_primary">';
 					echo iconv("gb2312","utf-8//IGNORE",$content[$i][3])."  分数: ".$content[$i][8]."   课程学分: ".$content[$i][6];
@@ -328,3 +342,5 @@
         return $td_array;
     }
 ?>
+</body>
+</html>
