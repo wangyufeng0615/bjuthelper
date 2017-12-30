@@ -275,9 +275,7 @@
 		<!-- <script src="weui/dist/example/toast.js"></script> -->
 		<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 		<script src="/js/accordion.js"></script>
-		<script src="/js/require_score.js"></script>
-		</body>
-		</html>';
+		<script src="/js/require_score.js"></script>';
 		//输出课程明细,主修课程
 		echo '<div class="weui_cells_title">课程明细</div>';
 		echo '<div class="weui_cells">';
@@ -344,3 +342,5 @@
         return $td_array;
     }
 ?>
+</body>
+</html>
