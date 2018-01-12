@@ -143,7 +143,7 @@ GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大�
 <section>
 如数据有问题(或者网站打不开了)请联系:<br>
 <a href="http://www.wangyufeng.org">王雨峰</a>(alanwang424@gmail.com)<br>
-<a href="http://www.coder17.com">陈仕玺</a>(admin@coder17.com)<br>
+<a href="http://www.coder17.com">陈仕玺</a>(chen17@coder17.com)<br>
 辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br>
 代码重构 by 马文瑞<br>
 <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
