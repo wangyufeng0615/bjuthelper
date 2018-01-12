@@ -34,7 +34,7 @@
 </head>
 <body>
     <!-- 使用的是WeUI -->
-	<form action="/require_grade.php" method="post">
+	<form action="./require_grade.php" method="post">
 		<div class="weui_cells_title">登录信息</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
@@ -131,7 +131,7 @@
 
 	<article class="weui_article">
 
-<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
+
 &nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
 说明：总加权平均分和总平均 GPA 的数据只对<b>没报二专业/辅修</b>的同学有效。<br>
 GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大教务处文件</a>，采用四分制计算。其他学校可能采用不同算法。<br>
@@ -139,7 +139,7 @@ GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大�
 展开详情可以查看该科目补考通过后的参考均分<br>
 <b>注意：</b>数据仅供参考，请以教务系统为准。<br>
 <br>
-<br>
+<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
 <section>
 如数据有问题(或者网站打不开了)请联系:<br>
 <a href="http://www.wangyufeng.org">王雨峰</a>(alanwang424@gmail.com)<br>
