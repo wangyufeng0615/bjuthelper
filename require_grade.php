@@ -110,29 +110,44 @@
 		//计算总的加权分数和总的GPA
 		$i = 5;         //从array[5]开始是有效信息
 		$all_score = 0; //总的加权*分数
+		$all_score_with_nopass = 0; // 包含不及格课程的总分数
+		$all_score_with_nopass_passed = 0; // 不及格课程按60计算的分数
 		$all_value = 0; //总的学分权值
+		$all_value_with_nopass = 0;
 		$all_GPA = 0;   //总的GPA*分数
+		$all_GPA_with_nopass_passed = 0;
 		$all_number_of_lesson = 0;  //总的课程数
 		$all_number_of_lesson_with_nopass = 0; //包含未过课程的总数
 		//计算总和的东西，学分/GPA
 		while(isset($content_allgrade[$i][4])){
 			//不计算第二课堂和新生研讨课以及未通过课程
 			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
-				if ($content_allgrade[$i][4] < 60 && is_numeric($content_allgrade[$i][4])) $all_number_of_lesson_with_nopass++;
+				if ($content_allgrade[$i][4] < 60 && is_numeric($content_allgrade[$i][4])){
+					$all_number_of_lesson_with_nopass++;
+					$all_score_with_nopass += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);
+					$all_score_with_nopass_passed += ($content_allgrade[$i][3] * 60);
+					$all_value_with_nopass += $content_allgrade[$i][3];
+					$all_GPA_with_nopass_passed += (2.0 * $content_allgrade[$i][3]);
+				}
 				$i++;
 			}
 			else{
 				$all_score += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);  //  累加总分
+				$all_score_with_nopass += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);
+				$all_score_with_nopass_passed += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);
 				$all_value += $content_allgrade[$i][3];    //  累加学分(权值)
-				
+				$all_value_with_nopass += $content_allgrade[$i][3];
 				if ($content_allgrade[$i][4] >= 85 && $content_allgrade[$i][4] <= 100){
 					$all_GPA += (4.0 * $content_allgrade[$i][3]);
+					$all_GPA_with_nopass_passed += (4.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 70 && $content_allgrade[$i][4] < 85){
 					$all_GPA += (3.0 * $content_allgrade[$i][3]);
+					$all_GPA_with_nopass_passed += (3.0 * $content_allgrade[$i][3]);
 				}
 				else if ($content_allgrade[$i][4] >= 60 && $content_allgrade[$i][4] < 70){
 					$all_GPA += (2.0 * $content_allgrade[$i][3]);
+					$all_GPA_with_nopass_passed += (2.0 * $content_allgrade[$i][3]);
 				}
 				$i++;
 				$all_number_of_lesson++;
@@ -195,47 +210,70 @@
 		';
 		printf("本学期已出分课程数: %.2d ",$term_lesson_count);
 		echo'
-		</div>
-		<div class="weui_accordion_content">
-		<p>';
+			</div>
+			<div class="weui_accordion_content">
+			<p>';
 		printf("大学总已出分课程数: %.2d ",$total_lesson_count);
 		echo '
-		</p>
-		<p>';
+			</p>
+			<p>';
 		printf("大学总未通过课程数: %.2d ",$all_number_of_lesson_with_nopass - $all_number_of_lesson);
 		echo '
-		</p>
-		</div>
-		</div>
-		</div>';
+			</p>
+			</div>
+			</div>
+			</div>';
 
 		echo'
-		<div class="weui_cells_title">平均分</div>
-		<div class="weui_cells">
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_score">
-		<p>';
+			<div class="weui_cells_title">平均分</div>
+			<div class="weui_cells">
+			<div class="weui_cell">
+			<div class="container">
+			<div class="weui_accordion_box">
+			<div class="weui_accordion_title">';
 		printf("您上大学以来总的加权平均分为: %.2lf 分",$all_score / $all_value);
+		echo'</div>
+		<div class="weui_accordion_content">
+		<p>'
+		printf("含未通过课程均分：%.2lf 分",  $all_score_with_nopass / $all_value_with_nopass);
+		echo'
+		</p>
+		<p>'
+		printf("未通过课程补考后均分（计60分）：%.2lf 分", $all_score_with_nopass_passed / $all_value_with_nopass);
 		echo'</p>
-		</div>
-		</div>
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_score">
-		<p>';
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary" id="average_score">
+			<div class="container">
+			<div class="weui_accordion_box">
+			<div class="weui_accordion_title">';
 		printf("您上大学以来总的平均学分绩点(GPA)为: %.2lf ",$all_GPA / $all_value);
+		echo'</div>
+		<div class="weui_accordion_content">
+		<p>'
+		printf("含未通过课程绩点（未通过计0绩点）：%.2lf 分",  $all_score_with_nopass / $all_value_with_nopass);
+		echo'
+		</p>
+		<p>'
+		printf("未通过课程补考后绩点（计60分2绩点）：%.2lf 分", $all_score_with_nopass_passed / $all_value_with_nopass);
 		echo'</p>
-		</div>
-		</div>
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_score">
-		<p>';
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary" id="average_score">
+			<p>';
 		printf("您本学期的加权平均分为: %.2lf 分",$average_score);
 		echo'</p>
-		</div>
-		</div>
-		<div class="weui_cell">
-		<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
-		<p>';
+			</div>
+			</div>
+			<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
+			<p>';
 		printf("您本学期的平均学分绩点(GPA)为: %.2lf",$total_GPA / $total_value);
 		echo'
 		</p>
