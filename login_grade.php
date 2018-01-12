@@ -121,7 +121,7 @@
             //Loading旋转菊花
             $(function() {
                 $('#showLoadingToast').click(function() {
-                    $('#loadingToast').fadeIn().delay(10000).fadeOut();
+                    $('#loadingToast').fadeIn();
                 });
             })
         </script>
@@ -130,34 +130,29 @@
 	</form>		
 
 	<article class="weui_article">
-<!--	
-	<section>
-<b><div style="color:red; font-size:14px;">修复进度：已经可以查询当前学期的成绩。其他学期成绩、总加权暂时无法查询。</div></b>
-	</section>	
-	<section>
-<b><div style="color:red; font-size:14px;">由于学校对教务网站进行了升级，野生工大助手暂时无法使用，请见谅。相关升级进行中。</div></b>
-    </section>
--->
-        <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
-		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对<b>没报二专业/辅修</b>的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br /><b>注意：</b>数据仅供参考，请以教务系统为准。<br />
 
-			<br/>
-			<br />
-		<section>
-如数据有问题(或者网站打不开了)请联系<a href="http://www.wangyufeng.org">王雨峰</a><br />
-Contact: alanwang424@gmail.com<br />
-或者<a href="http://www.null17.com">陈仕玺</a><br />
-Contact: admin@coder17.com<br />
-<font size="2">网站如果崩了请上微博艾特 <a href="https://weibo.com/TojoSaiki">@東城十七</a>，有奇效。 </font><br/>
-辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br />
-代码重构 by 马文瑞<br />
+<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
+&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
+说明：总加权平均分和总平均 GPA 的数据只对<b>没报二专业/辅修</b>的同学有效。<br>
+GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大教务处文件</a>，采用四分制计算。其他学校可能采用不同算法。<br>
+如果存在分数不足60分的科目，默认加权分数计算则不包含该科目。<br>
+展开详情可以查看该科目补考通过后的参考均分<br>
+<b>注意：</b>数据仅供参考，请以教务系统为准。<br>
+<br>
+<br>
+<section>
+如数据有问题(或者网站打不开了)请联系:<br>
+<a href="http://www.wangyufeng.org">王雨峰</a>(alanwang424@gmail.com)<br>
+<a href="http://www.coder17.com">陈仕玺</a>(admin@coder17.com)<br>
+辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br>
+代码重构 by 马文瑞<br>
 <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
-<br />
-QR Code is designed by the most beautiful girl in the world.<br />
-适用北京工业大学, <a href="https://github.com/wangyufeng0615/bjuthelper">Github</a><br />
+<br>
+QR Code is designed by the most beautiful girl in the world.<br>
+适用北京工业大学, <a href="https://github.com/wangyufeng0615/bjuthelper">Github</a><br>
 <a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
-        </section>
-    </article>
-	<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
-    </body>
+</section>
+</article>
+<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
+</body>
 </html>
