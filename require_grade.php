@@ -225,45 +225,41 @@
 			</div>';
 
 		echo'
-			<div class="weui_cells_title">平均分</div>
-			<div class="weui_cells">
-			<div class="weui_cell">
+			<div class="weui_cells_title">总平均分</div>
 			<div class="container">
 			<div class="weui_accordion_box">
 			<div class="weui_accordion_title">';
 		printf("您上大学以来总的加权平均分为: %.2lf 分",$all_score / $all_value);
 		echo'</div>
 		<div class="weui_accordion_content">
-		<p>'
-		printf("含未通过课程均分：%.2lf 分",  $all_score_with_nopass / $all_value_with_nopass);
+		<p>';
+		printf("含未通过课程均分（计实际分数）：%.2lf 分",  $all_score_with_nopass / $all_value_with_nopass);
 		echo'
 		</p>
-		<p>'
+		<p>';
 		printf("未通过课程补考后均分（计60分）：%.2lf 分", $all_score_with_nopass_passed / $all_value_with_nopass);
 		echo'</p>
 			</div>
 			</div>
 			</div>
-			</div>
-			<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary" id="average_score">
 			<div class="container">
 			<div class="weui_accordion_box">
 			<div class="weui_accordion_title">';
 		printf("您上大学以来总的平均学分绩点(GPA)为: %.2lf ",$all_GPA / $all_value);
 		echo'</div>
 		<div class="weui_accordion_content">
-		<p>'
-		printf("含未通过课程绩点（未通过计0绩点）：%.2lf 分",  $all_score_with_nopass / $all_value_with_nopass);
+		<p>';
+		printf("含未通过课程绩点（未通过计0绩点）：%.2lf",  $all_GPA / $all_value_with_nopass);
 		echo'
 		</p>
-		<p>'
-		printf("未通过课程补考后绩点（计60分2绩点）：%.2lf 分", $all_score_with_nopass_passed / $all_value_with_nopass);
+		<p>';
+		printf("未通过课程补考后绩点（计60分2绩点）：%.2lf", $all_GPA_with_nopass_passed / $all_value_with_nopass);
 		echo'</p>
 			</div>
 			</div>
 			</div>
-			</div>
+			<div class="weui_cells_title">学期平均分</div>
+			<div class="weui_cells">
 			<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary" id="average_score">
 			<p>';
@@ -281,8 +277,9 @@
 		</div>
 		<div class="weui_cell">
 		<div class="weui_cell_bd weui_cell_primary" id="average_score">
-		<p>
-		<i class="weui_icon_info"></i> GPA算法已更新为带权平均算法，和教务一致。
+		<p><h5>
+		<i class="weui_icon_info"></i> GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大教务处文件</a>，采用四分制计算。其他学校可能采用不同算法。
+		</h5>
 		</p>
 		</div>
 		</div>
