@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>成绩查询结果</title>
+	<title><?php printf("$_POST['account']") ?>成绩查询结果</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
 	<link rel="stylesheet" href="style/accordion.css">
 </head>
@@ -229,7 +229,7 @@
 			<div class="container">
 			<div class="weui_accordion_box">
 			<div class="weui_accordion_title">';
-		printf("您上大学以来总的加权平均分为: %.2lf 分",$all_score / $all_value);
+		printf("大学期间总加权平均分: %.2lf 分",$all_score / $all_value);
 		echo'</div>
 		<div class="weui_accordion_content">
 		<p>';
@@ -245,7 +245,7 @@
 			<div class="container">
 			<div class="weui_accordion_box">
 			<div class="weui_accordion_title">';
-		printf("您上大学以来总的平均学分绩点(GPA)为: %.2lf ",$all_GPA / $all_value);
+		printf("大学期间总平均学分绩点（GPA）: %.2lf ",$all_GPA / $all_value);
 		echo'</div>
 		<div class="weui_accordion_content">
 		<p>';
@@ -263,14 +263,14 @@
 			<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary" id="average_score">
 			<p>';
-		printf("您本学期的加权平均分为: %.2lf 分",$average_score);
+		printf("本学期加权平均分: %.2lf 分",$average_score);
 		echo'</p>
 			</div>
 			</div>
 			<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary" id="average_GPA">
 			<p>';
-		printf("您本学期的平均学分绩点(GPA)为: %.2lf",$total_GPA / $total_value);
+		printf("本学期平均学分绩点（GPA）: %.2lf",$total_GPA / $total_value);
 		echo'
 		</p>
 		</div>
