@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title><?php printf("$_POST['account']") ?>成绩查询结果</title>
+	<title><?php printf($_POST['account']); ?> - 成绩查询结果</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
 	<link rel="stylesheet" href="style/accordion.css">
 </head>
