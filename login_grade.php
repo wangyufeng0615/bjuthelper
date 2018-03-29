@@ -149,10 +149,10 @@ GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大�
 <a href="http://www.coder17.com">陈仕玺</a>(chen17@coder17.com)<br>
 辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br>
 代码重构 by 马文瑞<br>
-<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
 <br>
 QR Code is designed by the most beautiful girl in the world.<br>
 适用北京工业大学, <a href="https://github.com/wangyufeng0615/bjuthelper">Github</a><br>
+<i class="weui_icon_warn"></i>&nbsp;本项目是已结题星火重点项目，已报备相关单位<br>
 <a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
 </section>
 </article>
