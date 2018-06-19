@@ -76,8 +76,8 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_term">
-                        <option selected="" value="1">1</option>
-                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option selected="" value="2">2</option>
                         <option value="3">3</option>
                     </select>
                 </div>
