@@ -121,7 +121,11 @@
 		//计算总和的东西，学分/GPA
 		while(isset($content_allgrade[$i][4])){
 			//不计算第二课堂和新生研讨课以及未通过课程
-			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") || $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") || $content_allgrade[$i][4] < 60){
+			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") 
+			|| $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") 
+			|| $content_allgrade[$i][4] < 60 
+			|| strpos(mb_convert_encoding($content_allgrade[$i][2], 'utf-8', 'gb2312'), "（辅）")) {
+				//通过判断课程类型中的“（辅）”字样来过滤辅修成绩
 				if ($content_allgrade[$i][4] < 60 && is_numeric($content_allgrade[$i][4])){
 					$all_number_of_lesson_with_nopass++;
 					$all_score_with_nopass += ($content_allgrade[$i][3] * $content_allgrade[$i][4]);
