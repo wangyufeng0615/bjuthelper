@@ -1,9 +1,24 @@
+<?php 
+	if(isset($_POST["account"])) {
+		$p_account = $_POST['account'];
+		$p_password = $_POST['password'];
+		$p_current_year = $_POST['current_year'];
+		$p_current_term = $_POST['current_term'];
+	}
+	else {
+		$p_account = $_GET['account'];
+		$p_password = $_GET['password'];
+		$p_current_year = $_GET['current_year'];
+		$p_current_term = $_GET['current_term'];
+	}
+?>
+
 <!DOCTYPE html>
 <html lang='zh_cn'>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title><?php printf($_POST['account']); ?> - 成绩查询结果</title>
+	<title><?php printf($p_account); ?> - 成绩查询结果</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
 	<link rel="stylesheet" href="style/accordion.css">
 </head>
@@ -34,11 +49,11 @@
         return $result;
     }
     //获取VIEWSTATE
-    $_SESSION['xh']=$_POST['account'];
-    $xh=$_POST['account'];
-    $pw=$_POST['password'];
-    $current_year=$_POST['current_year'];
-    $current_term=$_POST['current_term'];
+    $_SESSION['xh']=$p_account;
+    $xh=$p_account;
+    $pw=$p_password;
+    $current_year=$p_current_year;
+    $current_term=$p_current_term;
     //$code= $_POST['verify_code'];
     //$cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
     $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
