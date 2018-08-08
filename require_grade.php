@@ -11,6 +11,8 @@
 		$p_current_year = $_GET['current_year'];
 		$p_current_term = $_GET['current_term'];
 	}
+	ini_set('display_errors', true);
+	error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +141,7 @@
 			if ($content_allgrade[$i][5] == iconv("utf-8","gb2312//IGNORE","第二课堂") 
 			|| $content_allgrade[$i][1] == iconv("utf-8","gb2312//IGNORE","新生研讨课") 
 			|| $content_allgrade[$i][4] < 60 
-			|| strpos(mb_convert_encoding($content_allgrade[$i][2], 'utf-8', 'gb2312'), "（辅）")) {
+			|| strpos(iconv("gb2312","utf-8//IGNORE",$content_allgrade[$i][2]), "（辅）")) {
 				//通过判断课程类型中的“（辅）”字样来过滤辅修成绩
 				if ($content_allgrade[$i][4] < 60 && is_numeric($content_allgrade[$i][4])){
 					$all_number_of_lesson_with_nopass++;
