@@ -11,8 +11,6 @@
 		$p_current_year = $_GET['current_year'];
 		$p_current_term = $_GET['current_term'];
 	}
-	ini_set('display_errors', true);
-	error_reporting(E_ALL);
 ?>
 
 <!DOCTYPE html>
@@ -348,7 +346,8 @@
 		}   
 		echo '</div>';
 		//输出辅修/二专业课程信息
-		if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
+		if ($total_score_fuxiu > 0) {
+			// if ($total_score_fuxiu > 0 || $total_score_secondmajor > 0) {
 			echo '<div class="weui_cells_title">辅修/二专业课程</div>';
 			echo '<div class="weui_cells">';
 			$i = 5;
