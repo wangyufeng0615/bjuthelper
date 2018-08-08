@@ -135,7 +135,8 @@
 <h1>
 <i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
 <i class="weui_icon_warn"></i>&nbsp;数据仅供参考，请以教务系统为准。<br></h1>
-<p>总加权平均分和总平均 GPA 的数据只对<b>没报双学位</b>的同学有效。<br>
+<br>
+<p>总加权平均分和总平均 GPA 的数据只对<b>没报二专业/辅修</b>的同学有效。<br>
 GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大教务处文件</a>，采用四分制计算。其他学校可能采用不同算法。<br>
 如果存在分数不足60分的科目，默认加权分数计算则不包含该科目。<br>
 展开详情可以查看该科目补考通过后的参考均分</p>
