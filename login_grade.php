@@ -34,7 +34,7 @@
 </head>
 <body>
     <!-- 使用的是WeUI -->
-	<form action="/require_grade.php" method="post">
+	<form action="./require_grade.php" method="post">
 		<div class="weui_cells_title">登录信息</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
@@ -61,6 +61,7 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_year">
+                        <option value="2017-2018">2017-2018</option>
                         <option value="2016-2017">2016-2017</option>
                         <option value="2015-2016">2015-2016</option>
                         <option value="2014-2015">2014-2015</option>
@@ -75,8 +76,8 @@
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
                     <select class="weui_select" name="current_term">
-                        <option selected="" value="1">1</option>
-                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option selected="" value="2">2</option>
                         <option value="3">3</option>
                     </select>
                 </div>
@@ -120,7 +121,7 @@
             //Loading旋转菊花
             $(function() {
                 $('#showLoadingToast').click(function() {
-                    $('#loadingToast').fadeIn().delay(5000).fadeOut();
+                    $('#loadingToast').fadeIn();
                 });
             })
         </script>
@@ -129,19 +130,31 @@
 	</form>		
 
 	<article class="weui_article">
-        <a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
-		&nbsp;<h1><i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br/>说明：总加权平均分和总平均GPA的数据只对没报二专业/辅修的同学有效。如果存在分数不足60分的科目，总加权分数可能不准。<br/>注意：数据仅供参考，请以教务系统为准。<br/><br/>
-		<section>
-如数据有问题(或者网站打不开了)请联系王雨峰同学<br />
-Contact: wyf0615@emails.bjut.edu.cn<br />
-或者<a href="http://www.devchen.com">陈仕玺同学</a><br />
-Contact: i@devChen.com<br />
-<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#更新日志">更新日志</a><br>
-<br />
-QR Code is designed by the most beautiful girl in the world.<br />
+
+
+<h1>
+<i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
+<i class="weui_icon_warn"></i>&nbsp;数据仅供参考，请以教务系统为准。<br></h1>
+<p>总加权平均分和总平均 GPA 的数据只对<b>没报双学位</b>的同学有效。<br>
+GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大教务处文件</a>，采用四分制计算。其他学校可能采用不同算法。<br>
+如果存在分数不足60分的科目，默认加权分数计算则不包含该科目。<br>
+展开详情可以查看该科目补考通过后的参考均分</p>
+
+<br>
+<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
+<section>
+如数据有问题(或者网站打不开了)请联系:<br>
+<a href="http://www.wangyufeng.org">王雨峰</a>(alanwang424@gmail.com)<br>
+<a href="http://www.coder17.com">陈仕玺</a>(chen17@coder17.com)<br>
+辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br>
+代码重构 by 马文瑞<br>
+<br>
+QR Code is designed by the most beautiful girl in the world.<br>
+适用北京工业大学, <a href="https://github.com/wangyufeng0615/bjuthelper">Github</a><br>
+<i class="weui_icon_warn"></i>&nbsp;本项目是已结题星火重点项目，已报备相关单位<br>
 <a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
-        </section>
-    </article>
-	<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
-    </body>
+</section>
+</article>
+<div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
+</body>
 </html>
