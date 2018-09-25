@@ -80,7 +80,6 @@
         echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码输入错误，或者是选择了无效的学年/学期，请<a href="/login_grade.php">返回</a>重新输入</h2>';
         exit();
     }
-
     //Login done.
     require_score($cookie, $current_year, $current_term);    //获取加权平均分和成绩明细
     
@@ -242,7 +241,6 @@
 			</div>
 			</div>
 			</div>';
-
 		echo'
 			<div class="weui_cells_title">总平均分</div>
 			<div class="container">
