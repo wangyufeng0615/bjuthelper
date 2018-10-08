@@ -219,7 +219,12 @@
 			}
 		}
 		$average_score = $total_score / $total_value;
-		$average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
+		if($total_value_fuxiu == 0){
+            $average_score_fuxiu = 0;
+        }
+		else{
+            $average_score_fuxiu = $total_score_fuxiu / $total_value_fuxiu;
+        }
 		$term_lesson_count = $i-5;
 		echo'
 		<div class="weui_cells_title">课程统计情况</div>
