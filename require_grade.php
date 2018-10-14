@@ -15,22 +15,6 @@ include_once ("core/BJUTHelper.php");
 		$p_current_term = $_GET['current_term'];
 	}
 
-?>
-
-<!DOCTYPE html>
-<html lang='zh_cn'>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title><?php printf($p_account); ?> - 成绩查询结果</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
-    <link rel="stylesheet" href="style/accordion.css">
-</head>
-<body>
-
-<?php
-
-
     session_start();
     header("Content-type: text/html; charset=utf-8");  //视学校而定，一般是gbk编码，php也采用的gbk编码方式
 
@@ -53,8 +37,18 @@ include_once ("core/BJUTHelper.php");
 
     $result = $student->get_final_result($current_year, $current_term);
 
-
 ?>
+
+<!DOCTYPE html>
+<html lang='zh_cn'>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title><?php printf($p_account); ?> - 成绩查询结果</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
+    <link rel="stylesheet" href="style/accordion.css">
+</head>
+<body>
 
 <div class="weui_cells_title">课程统计情况</div>
 <div class="container">
