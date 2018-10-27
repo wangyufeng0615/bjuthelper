@@ -145,6 +145,9 @@
 
 	<article class="weui_article">
 
+        <div class="show-img" style="width: 100%;">
+            <img src="imgs/xuanchuan.png" style="display: block; margin: auto; width: 100%; max-width: 600px;" />
+        </div>
 
 <h1>
 <i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
