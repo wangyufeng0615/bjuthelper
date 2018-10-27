@@ -1,6 +1,6 @@
 <?php
 
-include_once ("core/BJUTHelper.php");
+include_once("core/BJUTHelper.php");
 
 	if(isset($_POST["account"])) {
 		$p_account = $_POST['account'];

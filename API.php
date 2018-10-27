@@ -6,7 +6,7 @@
  * Time: 8:38 AM
  */
 
-include_once ("core/BJUTHelper.php");
+include_once("core/BJUTHelper.php");
 include_once("core/model/APIResult.php");
 
 header('Content-type: application/json; charset=utf-8');
