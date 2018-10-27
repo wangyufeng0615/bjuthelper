@@ -20,6 +20,8 @@
         //fwrite($fp,$img);                                                   //写入文件 
         //fclose($fp);
     }
+
+    include_once ("core/const.php");
 ?>
 
 <!DOCTYPE html>
@@ -60,12 +62,17 @@
                     学年
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="current_year">
-                        <option value="2017-2018">2017-2018</option>
-                        <option value="2016-2017">2016-2017</option>
-                        <option value="2015-2016">2015-2016</option>
-                        <option value="2014-2015">2014-2015</option>
-                        <option value="2013-2014">2013-2014</option>
+                    <select class="weui_select" name="current_year" title="current_year">
+                        <?php
+                        foreach ($years as $year){
+                            if($default_year==$year){
+                                echo '<option selected="" value="'.$year.'">'.$year.'</option>';
+                            }
+                            else{
+                                echo '<option value="'.$year.'">'.$year.'</option>';
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -75,10 +82,17 @@
                     学期
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="current_term">
-                        <option value="1">1</option>
-                        <option selected="" value="2">2</option>
-                        <option value="3">3</option>
+                    <select class="weui_select" name="current_term" title="current_term">
+                        <?php
+                        foreach ($terms as $term){
+                            if($default_term==$term){
+                                echo '<option selected="" value="'.$term.'">'.$term.'</option>';
+                            }
+                            else{
+                                echo '<option value="'.$term.'">'.$term.'</option>';
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
