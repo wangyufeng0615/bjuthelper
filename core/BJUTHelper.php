@@ -8,8 +8,6 @@
 include_once ("http.php");
 include_once ("requests.php");
 include_once ("parser.php");
-
-
 class BJUTHelper
 {
     //学生信息
@@ -18,7 +16,6 @@ class BJUTHelper
     private $view_state = '';
     private $http;
     private $is_login = false;
-
     /**
      * BJUThelper constructor.
      * @param $stu_id string 学生用户名
@@ -30,7 +27,6 @@ class BJUTHelper
         $this->password = $password;
         $this->http = new HttpHolder();
     }
-
     /**
      * 登录并检查密码。一切操作前都需要执行该方法
      * 成功返回真，失败（账号密码有误等等）返回假
@@ -42,15 +38,12 @@ class BJUTHelper
             $this->is_login = false;
             return false;
         }
-
         //获取view_state以供后续查询成绩使用
         $state_context = send_view_state_request($this->http, $this->stu_id);
         $this->view_state = view_state_parser($state_context);
-
         $this->is_login = true;
         return true;
     }
-
     /**
      * 查询是否登录
      * @return mixed
@@ -59,7 +52,6 @@ class BJUTHelper
     function has_login(){
         return $this->is_login && $this->view_state;
     }
-
     /**
      * 获得指定一学期课程数据
      * @param string $current_year
@@ -76,7 +68,6 @@ class BJUTHelper
         $courses = specified_grade_parser($context);
         return $courses;
     }
-
     /**
      * 获得总成绩数据
      * 吐槽！为什么需要这两个参数啊。
@@ -94,7 +85,6 @@ class BJUTHelper
         $courses = all_grade_parser($context);
         return $courses;
     }
-
     /**
      * 返回计算后结果
      * @param string $current_year
@@ -102,10 +92,8 @@ class BJUTHelper
      * @return array
      */
     function get_final_result(string $current_year, string $current_term){
-
         $grade_total = $this->get_all_course($current_year, $current_term);
         $grade_term = $this->get_specified_course($current_year, $current_term);
-
         //计算总的加权分数和总的GPA
         $all_score = 0; //总的加权*分数
         $all_score_include_unpassed = 0; // 包含不及格课程的总分数
@@ -155,9 +143,6 @@ class BJUTHelper
             }
         }
         $total_lesson_count = count($grade_total);
-
-
-
         //个别学期加权平均分和GPA的计算
         //主修课程
         $total_score = 0;
@@ -172,8 +157,8 @@ class BJUTHelper
         //计算个别学期的信息
         foreach($grade_term as $course){
             if (!($course->belong =="第二课堂"
-                 || $course->name === "新生研讨课"
-                 || $course->score < 60)){
+                || $course->name === "新生研讨课"
+                || $course->score < 60)){
                 //处理辅修/二专业
                 if ($course->minor_maker == 2){
                     $total_score_minor += ($course->score * $course->credit);  //  累加总分
@@ -197,12 +182,8 @@ class BJUTHelper
                 }
             }
         }
-
 //        $average_score = $total_score / $total_value;
-
         $term_lesson_count = count($grade_term);
-
-
         $average_score_all = $all_value !== 0 ? $all_score / $all_value : 0;
         $average_score_term = $total_value !== 0 ? $total_score / $total_value : 0;
         $average_score_minor = $total_value_minor !== 0 ? $total_score_minor / $total_value_minor : 0;
@@ -213,10 +194,7 @@ class BJUTHelper
         $average_GPA_minor = $total_value_minor !== 0 ? $total_GPA_minor / $total_value_minor : 0;
         $average_GPA_include_unpassed = $all_value_include_unpassed !== 0 ? $all_GPA / $all_value_include_unpassed : 0;
         $average_GPA_include_unpassed_passed = $all_value_include_unpassed !== 0 ? $all_GPA_include_unpassed_passed / $all_value_include_unpassed : 0;
-
         $all_number_of_lesson_unpassed = $all_number_of_lesson_include_unpassed - $all_number_of_lesson_passed;
-
-
         $result = array(
             "grade_term" => $grade_term,                                                    //学习成绩数据集
             "grade_total" => $grade_total,                                                  //总成绩数据集
@@ -244,21 +222,14 @@ class BJUTHelper
             "average_GPA_minor" => $average_GPA_minor,                                  //辅修加权GPA
             "average_GPA_include_unpassed" => $average_GPA_include_unpassed,            //含未通过课程绩点（未通过计0绩点）
             "average_GPA_include_unpassed_passed" => $average_GPA_include_unpassed_passed, //未通过课程补考后绩点（计60分2绩点）
-
             "term_lesson_count" => $term_lesson_count,                                  //本学期已出分课程数
             "total_lesson_count" => $total_lesson_count,                                //大学总已出分课程数
         );
-
 //        var_dump($result);
 //        exit();
-
         return $result;
-
-
     }
-
 }
-
 //$test = new BJUTHelper("16080211", "");
 //if($test->login()){
 //    $r = $test->get_all_course("2017-2018", "2");

@@ -6,12 +6,15 @@
  * Time: 8:38 AM
  */
 
-include_once ("core/BJUTHelper.php");
+include_once("core/BJUTHelper.php");
 include_once("core/model/APIResult.php");
 
 header('Content-type: application/json; charset=utf-8');
 
 $action=null;
+
+include_once ("core/const.php");
+
 if(isset($_POST["action"])){
     $action = $_POST["action"];
 }
@@ -22,23 +25,13 @@ if($action){
     switch ($action){
         case "get_year";
             $response = new APIResult();
-            $response->result = [
-                "2013-2014",
-                "2014-2015",
-                "2015-2016",
-                "2016-2017",
-                "2017-2018",
-                ];
+            $response->result = $years;
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             exit();
             break;
         case "get_term";
             $response = new APIResult();
-            $response->result = [
-                "1",
-                "2",
-                "3",
-            ];
+            $response->result = $terms;
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             exit();
             break;
