@@ -16,6 +16,7 @@ class BJUTHelper
     private $view_state = '';
     private $http;
     private $is_login = false;
+    private $info;
     /**
      * BJUThelper constructor.
      * @param $stu_id string 学生用户名
@@ -66,6 +67,7 @@ class BJUTHelper
             $current_year,
             $current_term);
         $courses = specified_grade_parser($context);
+        $this->info = personal_info_parser($context);
         return $courses;
     }
     /**
@@ -83,6 +85,7 @@ class BJUTHelper
             $current_year,
             $current_term);
         $courses = all_grade_parser($context);
+        $this->info = personal_info_parser($context);
         return $courses;
     }
     /**
@@ -196,6 +199,12 @@ class BJUTHelper
         $average_GPA_include_unpassed_passed = $all_value_include_unpassed !== 0 ? $all_GPA_include_unpassed_passed / $all_value_include_unpassed : 0;
         $all_number_of_lesson_unpassed = $all_number_of_lesson_include_unpassed - $all_number_of_lesson_passed;
         $result = array(
+            "sid"=> $this->info["sid"],
+            "name"=> $this->info["name"],
+            "institute"=> $this->info["institute"],
+            "major"=> $this->info["major"],
+            "direction"=> $this->info["direction"],
+            "class"=> $this->info["class"],
             "grade_term" => $grade_term,                                                    //学习成绩数据集
             "grade_total" => $grade_total,                                                  //总成绩数据集
             "all_score" => $all_score,                                                      //总的加权*分数
