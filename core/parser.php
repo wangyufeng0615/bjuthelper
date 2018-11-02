@@ -243,6 +243,101 @@ array (size=56)
      */
     }
 
+/**
+ * 从页面解析基本信息
+ * 配合send_view_state_requests使用
+ * @param $http_response
+ * @return mixed
+ */
+function personal_info_parser(string $http_response){
+
+    $array = extract_grade_table_parser($http_response);
+
+    $info = [];
+
+    foreach (array_merge($array[1], $array[2]) as $index => $item) {
+        $item = str_replace(array("："),':',$item);
+        $result = explode(":", $item);
+        $info[trim($result[0])] = $result[1];
+    }
+
+    $result = array(
+        "sid"=> $info["学号"],
+        "name"=> $info["姓名"],
+        "institute"=> $info["学院"],
+        "major"=> $info["专业"],
+        "direction"=> $info["专业方向"],
+        "class"=> $info["行政班"],
+    );
+
+    return $result;
+
+    /*
+     * 解析后数组格式大致如下：
+     * 特此记录供以后参考。
+     *
+     * 理论上传什么进来都一样
+     *
+array (size=56)
+  0 =>
+    array (size=1)
+      0 => string 'HTTP/1.1100ContinueHTTP/1.1200OKCache-Control:privateContent-Length:39679Content-Type:text/html;chaet=gb2312Server:Microsoft-IIS/7.0X-AspNet-Veion:1.1.4322X-Powered-By:ASP.NETDate:Tue,09Oct201806:49:16GMT现代教学管理信息系统functionshowWXKC(t,nr){Ext.Msg.getDialog().setWidth(500);Ext.MessageBox.alert(t+"还需修课程",nr);}functionwindow.onbeforeprint(){document.all.tabHidden.style.display="none"}functionwindow.onafterprint(){document.all.tabHidden.style.display="block"}functionclick(){if(event.'... (length=2108)
+  1 =>
+    array (size=3)
+      0 => string '学号：1608XXXX' (length=17)
+      1 => string '姓名：XXX' (length=18)
+      2 => string '学院：信息学部' (length=21)
+  2 =>
+    array (size=3)
+      0 => string '专业：软件工程（实验班）' (length=36)
+      1 => string '专业方向:' (length=13)
+      2 => string '行政班：1608XX' (length=18)
+  3 =>
+    array (size=1)
+      0 => string '' (length=0)
+  4 =>
+    array (size=6)
+      0 => string '已修课程最高成绩：课程代码' (length=39)
+      1 => string '课程名称' (length=12)
+      2 => string '课程性质' (length=12)
+      3 => string '学分' (length=6)
+      4 => string '最高成绩值' (length=15)
+      5 => string '课程归属' (length=12)
+  5 =>
+    array (size=6)
+      0 => string '0007069' (length=7)
+      1 => string '“中国特色社会主义建设”实践' (length=42)
+      2 => string '实践环节必修课' (length=21)
+      3 => string '2.0' (length=3)
+      4 => string '76' (length=2)
+      5 => string '' (length=0)
+
+  ……………………………………………………………………
+
+  52 =>
+    array (size=6)
+      0 => string '0004312' (length=7)
+      1 => string '中国近现代史纲要' (length=24)
+      2 => string '公共基础必修课' (length=21)
+      3 => string '2.0' (length=3)
+      4 => string '83' (length=2)
+      5 => string '' (length=0)
+  53 =>
+    array (size=1)
+      0 => string '' (length=0)
+  54 =>
+    array (size=4)
+      0 => string '' (length=0)
+      1 => string '' (length=0)
+      2 => string '' (length=0)
+      3 => string '' (length=0)
+  55 =>
+    array (size=2)
+      0 => string '成绩及绩点仅供参考，以教务管理端为准。' (length=57)
+      1 => string '' (length=0)
+     */
+}
+
 
 
     /**
