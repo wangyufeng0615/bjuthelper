@@ -1,19 +1,11 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    http_response_code( 301 );
+    header('Location: ./?' . $_SERVER['QUERY_STRING']);
+    exit;
+}
 
 include_once("core/BJUTHelper.php");
-
-	if(isset($_POST["account"])) {
-		$p_account = $_POST['account'];
-		$p_password = $_POST['password'];
-		$p_current_year = $_POST['current_year'];
-		$p_current_term = $_POST['current_term'];
-	}
-	else {
-		$p_account = $_GET['account'];
-		$p_password = $_GET['password'];
-		$p_current_year = $_GET['current_year'];
-		$p_current_term = $_GET['current_term'];
-	}
 
     session_start();
     header("Content-type: text/html; charset=utf-8");  //视学校而定，一般是gbk编码，php也采用的gbk编码方式
@@ -31,7 +23,7 @@ include_once("core/BJUTHelper.php");
 
     //若登陆信息输入有误
     if(!$login_success){
-        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码输入错误，或者是选择了无效的学年/学期，请<a href="/login_grade.php">返回</a>重新输入</h2>';
+        echo '<h2>&nbsp;<i class="weui_icon_warn"></i>&nbsp;您的账号 or 密码输入错误，或者是选择了无效的学年/学期，请<a href="./">返回</a>重新输入</h2>';
         exit();
     }
 
@@ -45,11 +37,12 @@ include_once("core/BJUTHelper.php");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title><?php printf($p_account); ?> - 成绩查询结果</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css">
     <link rel="stylesheet" href="style/accordion.css">
+    <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
-
+<div class="warp" id="warp">
 <div class="weui_cells_title">课程统计情况</div>
 <div class="container">
     <div class="weui_accordion_box">
@@ -148,8 +141,8 @@ if ($result["total_value_minor"] > 0) {
 <!-- <script src="weui/dist/example/zepto.min.js"></script> -->
 <!-- <script src="weui/dist/example/toast.js"></script> -->
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-<script src="/js/accordion.js"></script>
-<script src="/js/require_score.js"></script>
+<script src="js/accordion.js" async></script>
+<script src="js/require_score.js" async></script>
 
 <div class="weui_cells_title">课程明细</div>
 <div class="weui_cells">
@@ -198,7 +191,7 @@ if ($result["total_value_minor"] > 0) {
 }
 ?>
 
-<a class="weui_btn weui_btn_default" href="javascript:;" onClick="location.href=document.referrer">返回</a>
-
+<a class="weui_btn weui_btn_default" href="./">返回</a>
+</div><!-- .container -->
 </body>
 </html>
