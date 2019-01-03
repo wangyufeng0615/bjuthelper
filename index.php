@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     define( 'ABSPATH', dirname( __FILE__ ) . '/' );
 }
 
-if (explode(':', $_SERVER['HTTP_HOST'])[0] == "localhost") {
+$is_debug = false;
+
+if ( isset($is_debug) && $is_debug ) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
