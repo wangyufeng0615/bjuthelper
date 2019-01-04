@@ -152,7 +152,8 @@ if ($result["total_value_minor"] > 0) {
 foreach($result["grade_term"] as $course){
     if ($course->minor_maker == 0){
         echo '<div class="weui_cell">';
-        echo '<div class="weui_cell_bd weui_cell_primary">';
+        echo '<div class="weui_cell_bd weui_cell_primary" data-course-id="'.$course->id.'" '
+                .'data-course-belong="'.$course->belong.'" data-course-type="'.$course->type.'">';
         echo $course->name."  分数: ".$course->score."   课程学分: ".$course->credit;
         echo '</div>';
         echo '</div>';
@@ -171,7 +172,8 @@ if ($result["total_value_minor"] > 0) {
     foreach ($result["grade_term"] as $course){
         if ($course->minor_maker == 2){
             echo '<div class="weui_cell">';
-            echo '<div class="weui_cell_bd weui_cell_primary">';
+            echo '<div class="weui_cell_bd weui_cell_primary" data-course-id="'.$course->id.'" '
+                .'data-course-belong="'.$course->belong.'" data-course-type="'.$course->type.'">';
             echo $course->name."  分数: ".$course->score."   课程学分: ".$course->credit;
             echo '</div>';
             echo '</div>';
