@@ -1,4 +1,10 @@
-<?php 
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+    http_response_code( 301 );
+    header('Location: ./' );
+    exit;
+}
+
     session_start();
     $id=session_id();
     $_SESSION['id']=$id;
@@ -30,13 +36,15 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 	<title>野生工大助手 - 无验证码版</title>
-	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"/>
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css">
     <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-	<script src="/js/login_score.js"></script>  
+	<script src="js/login_score.js"></script>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
+<div class="warp" id="warp">
     <!-- 使用的是WeUI -->
-	<form action="./require_grade.php" method="post">
+	<form action="./" method="post">
 		<div class="weui_cells_title">登录信息</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
@@ -167,11 +175,12 @@ GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大�
 代码重构 by 马文瑞<br>
 <br>
 QR Code is designed by the most beautiful girl in the world.<br>
-适用北京工业大学, <a href="https://github.com/wangyufeng0615/bjuthelper">Github</a><br>
+适用北京工业大学, <a href="https://github.com/remini1998/bjuthelper">Github</a><br>
 <i class="weui_icon_warn"></i>&nbsp;本项目是已结题星火重点项目，已报备相关单位<br>
 <a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
 </section>
 </article>
 <div style="display:none"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259582707'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1259582707' type='text/javascript'%3E%3C/script%3E"));</script></div>
+</div><!-- .container -->
 </body>
 </html>

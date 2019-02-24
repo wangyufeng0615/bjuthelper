@@ -112,6 +112,7 @@ class BJUTHelper
             //不计算第二课堂和新生研讨课以及未通过课程
             if ($course->belong == "第二课堂"
                 || $course->name == "新生研讨课"
+                || ($course->belong == "" && $course->type == "校选修课")
                 || $course->score < 60
                 || strpos($course->type, "（辅）")) {
                 //通过判断课程类型中的“（辅）”字样来过滤辅修成绩
@@ -161,6 +162,7 @@ class BJUTHelper
         foreach($grade_term as $course){
             if (!($course->belong =="第二课堂"
                 || $course->name === "新生研讨课"
+                || ($course->belong == "" && $course->type == "校选修课")
                 || $course->score < 60)){
                 //处理辅修/二专业
                 if ($course->minor_maker == 2){
