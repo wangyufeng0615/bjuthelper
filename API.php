@@ -8,19 +8,14 @@
 
 include_once("core/BJUTHelper.php");
 include_once("core/model/APIResult.php");
+include_once("core/utils.php");
 
 header('Content-type: application/json; charset=utf-8');
 
-$action=null;
-
 include_once ("core/const.php");
 
-if(isset($_POST["action"])){
-    $action = $_POST["action"];
-}
-if(isset($_GET["action"])){
-    $action = $_GET["action"];
-}
+$action=get_argument("action");
+
 if($action){
     switch ($action){
         case "get_year";
@@ -35,27 +30,13 @@ if($action){
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
             exit();
             break;
-
     }
 }
 
-if(isset($_POST["account"])) {
-    $p_account = $_POST['account'];
-    $p_password = $_POST['password'];
-    $p_current_year = $_POST['current_year'];
-    $p_current_term = $_POST['current_term'];
-}
-else {
-    $p_account = $_GET['account'];
-    $p_password = $_GET['password'];
-    $p_current_year = $_GET['current_year'];
-    $p_current_term = $_GET['current_term'];
-}
-
-$xh=$p_account;
-$pw=$p_password;
-$current_year=$p_current_year;
-$current_term=$p_current_term;
+$xh = get_argument('account');
+$pw = get_argument('password');
+$current_year = get_argument('current_year', "");
+$current_term = get_argument('current_term', "");
 
 $student = new BJUTHelper($xh, $pw);
 
@@ -70,7 +51,12 @@ if(!$login_success){
     exit();
 }
 
-$result = $student->get_final_result($current_year, $current_term);
+if($action == "schedule"){
+    $result = $student->get_specified_schedule($current_year, $current_term);
+}
+else{
+    $result = $student->get_final_result($current_year, $current_term);
+}
 
 $response = new APIResult();
 $response->result = $result;

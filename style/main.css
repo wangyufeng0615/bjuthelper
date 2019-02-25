@@ -1,0 +1,8 @@
+/* Container */
+
+@media (min-width: 576px) {
+    .warp {
+        max-width: 560px;
+        margin: 50px auto;
+    }
+}
