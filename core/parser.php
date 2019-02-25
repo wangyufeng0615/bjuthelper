@@ -255,7 +255,7 @@ function specified_grade_parser(string $http_response){
     //去前
     $array = array_slice($array, 1);
     //排后
-    $array = array_slice($array, 0, count($array) - 24);
+//    $array = array_slice($array, 0, count($array) - 0);
 
     $result = [];
     foreach ($array as $i){

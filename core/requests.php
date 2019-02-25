@@ -53,6 +53,15 @@ function generate_grade_url(string $stu_id){
     return "http://gdjwgl.bjut.edu.cn/xscj_gc2.aspx?xh=".$stu_id;
 }
 
+/**
+ * 用于生成查询课表的链接
+ * @param string $stu_id 学号
+ * @return string
+ */
+function generate_course_url(string $stu_id){
+    return "http://gdjwgl.bjut.edu.cn/xscj_gc2.aspx?xh=".$stu_id;
+}
+
 
 /**
  * 可配合view_state_parser获取页面的 view state

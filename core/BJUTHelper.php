@@ -8,6 +8,7 @@
 include_once ("http.php");
 include_once ("requests.php");
 include_once ("parser.php");
+include_once ("utils.php");
 class BJUTHelper
 {
     //学生信息
@@ -66,7 +67,8 @@ class BJUTHelper
             $this->view_state,
             $current_year,
             $current_term);
-        $courses = specified_grade_parser($context);
+        $table = get_content_by_tag_and_id($context, "table", "Datagrid1");
+        $courses = specified_grade_parser($table);
         $this->info = personal_info_parser($context);
         return $courses;
     }
