@@ -74,12 +74,9 @@ class BJUTHelper
     }
     /**
      * 获得总成绩数据
-     * 吐槽！为什么需要这两个参数啊。
-     * @param string $current_year
-     * @param string $current_term
      * @return array
      */
-    function get_all_course(string $current_year, string $current_term){
+    function get_all_course(){
         $context = send_all_grade_request(
             $this->http,
             $this->stu_id,
@@ -95,7 +92,7 @@ class BJUTHelper
      * @return array
      */
     function get_final_result(string $current_year, string $current_term){
-        $grade_total = $this->get_all_course($current_year, $current_term);
+        $grade_total = $this->get_all_course();
         $grade_term = $this->get_specified_course($current_year, $current_term);
         //计算总的加权分数和总的GPA
         $all_score = 0; //总的加权*分数
