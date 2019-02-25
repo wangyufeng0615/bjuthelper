@@ -15,3 +15,13 @@ function divide_string_by_colon(string $content){
     $item = str_replace(array("："),':',$content);
     return explode(":", $item);
 }
+
+function get_argument(string $name, $default=null){
+    if(isset($_POST[$name])){
+        return $_POST[$name];
+    }
+    if(isset($_GET[$name])){
+        return $_GET[$name];
+    }
+    return $default;
+}

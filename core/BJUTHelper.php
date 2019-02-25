@@ -15,6 +15,7 @@ class BJUTHelper
     private $stu_id = '';
     private $password = '';
     private $view_state = '';
+    private $view_state_type = '';
     private $http;
     private $is_login = false;
     private $info;
@@ -40,9 +41,6 @@ class BJUTHelper
             $this->is_login = false;
             return false;
         }
-        //获取view_state以供后续查询成绩使用
-        $state_context = send_view_state_request($this->http, $this->stu_id);
-        $this->view_state = view_state_parser($state_context);
         $this->is_login = true;
         return true;
     }
@@ -54,6 +52,33 @@ class BJUTHelper
     function has_login(){
         return $this->is_login && $this->view_state;
     }
+
+    /**
+     * 如果查分的view_state不是查分状态，切换为查分状态
+     */
+    function ensure_score_view_state(){
+        //获取view_state以供后续查询成绩使用
+        if($this->view_state_type != "score"){
+            $state_context = send_view_state_request($this->http, generate_grade_url($this->stu_id));
+            $this->view_state = view_state_parser($state_context);
+            $this->view_state_type = "score";
+        }
+
+    }
+
+    /**
+     * 如果查分的view_state不是课表状态，切换为课表状态
+     */
+    function ensure_schedule_view_state(){
+        //获取view_state以供后续查询成绩使用
+        if($this->view_state_type != "schedule"){
+            $state_context = send_view_state_request($this->http, generate_course_url($this->stu_id));
+            $this->view_state = view_state_parser($state_context);
+            $this->view_state_type = "schedule";
+        }
+
+    }
+
     /**
      * 获得指定一学期课程数据
      * @param string $current_year
@@ -61,6 +86,7 @@ class BJUTHelper
      * @return array
      */
     function get_specified_course(string $current_year, string $current_term){
+        $this->ensure_score_view_state();
         $context = send_specified_grade_request(
             $this->http,
             $this->stu_id,
@@ -69,7 +95,7 @@ class BJUTHelper
             $current_term);
         $table = get_content_by_tag_and_id($context, "table", "Datagrid1");
         $courses = specified_grade_parser($table);
-        $this->info = personal_info_parser($context);
+        $this->info = personal_score_info_parser($context);
         return $courses;
     }
     /**
@@ -77,12 +103,13 @@ class BJUTHelper
      * @return array
      */
     function get_all_course(){
+        $this->ensure_score_view_state();
         $context = send_all_grade_request(
             $this->http,
             $this->stu_id,
             $this->view_state);
         $courses = all_grade_parser($context);
-        $this->info = personal_info_parser($context);
+        $this->info = personal_score_info_parser($context);
         return $courses;
     }
     /**
@@ -92,6 +119,7 @@ class BJUTHelper
      * @return array
      */
     function get_final_result(string $current_year, string $current_term){
+        $this->ensure_score_view_state();
         $grade_total = $this->get_all_course();
         $grade_term = $this->get_specified_course($current_year, $current_term);
         //计算总的加权分数和总的GPA
@@ -237,6 +265,30 @@ class BJUTHelper
 //        exit();
         return $result;
     }
+
+
+    /**
+     * 获得指定一学期课表
+     * @param string $current_year
+     * @param string $current_term
+     * @return array
+     */
+    function get_specified_schedule(string $current_year="", string $current_term=""){
+        $this->ensure_schedule_view_state();
+        $context = send_schedule_request(
+            $this->http,
+            $this->stu_id,
+            $this->view_state,
+            $current_year,
+            $current_term);
+        $courses = specified_schedule_parser($context);
+        $info = personal_schedule_info_parser($context);
+        return array(
+            "courses" => $courses,
+            "info" => $info
+        );
+    }
+
 }
 //$test = new BJUTHelper("16080211", "");
 //if($test->login()){

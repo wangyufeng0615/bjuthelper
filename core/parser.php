@@ -1,6 +1,7 @@
 <?php
 include_once ("model/Course.php");
 include_once ("model/CourseDetailed.php");
+include_once ("model/CourseSchedule.php");
 include_once ("utils.php");
 
 /**
@@ -52,14 +53,14 @@ function view_state_parser($http_response){
 }
 
 
-
 /**
  * table转array
  * 为了可移植性而保留
- * @param $content
+ * @param string $content
+ * @param bool $delete_tag 是否删除其它html标签
  * @return array
  */
-function table_to_array(string $content) {
+function table_to_array(string $content, bool $delete_tag=true) {
 
     $content = preg_replace("'<table[^>]*?>'si","",$content);
     $content = preg_replace("'<tr[^>]*?>'si","",$content);
@@ -67,7 +68,9 @@ function table_to_array(string $content) {
     $content = str_replace("</tr>","{tr}",$content);
     $content = str_replace("</td>","{td}",$content);
     //去掉 HTML 标记
-    $content = preg_replace("'<[/!]*?[^<>]*?>'si","",$content);
+    if($delete_tag){
+        $content = preg_replace("'<[/!]*?[^<>]*?>'si","",$content);
+    }
     //去掉空白字符
     $content = preg_replace("'([rn])[s]+'","",$content);
     $content = preg_replace('/&nbsp;/',"",$content);
@@ -93,16 +96,31 @@ function table_to_array(string $content) {
  * @return array
  */
 function extract_grade_table_parser(string $content) {
-
-    //统一转码至utf-8
-    $content = iconv("gb2312","utf-8//IGNORE", $content);
-
     //去除多余空行
     $content = str_replace("\t", "", $content);
     $content = str_replace("\n", "", $content);
     $content = str_replace("\r", "", $content);
 
     $array = table_to_array($content);
+
+    return $array;
+
+}
+
+
+
+/**
+ * 该项目专用的课表抽取方法
+ * @param $content
+ * @return array
+ */
+function extract_schedule_table_parser(string $content) {
+    //去除多余空行
+    $content = str_replace("\t", "", $content);
+    $content = str_replace("\n", "", $content);
+    $content = str_replace("\r", "", $content);
+
+    $array = table_to_array($content, false);
 
     return $array;
 
@@ -159,6 +177,23 @@ function array_course_from_specific_factory($course_array){
 }
 
 /**
+ * 请务必注意以下两点：
+ *      传进来的是【单个】课程的array数组
+ *      获取的接口应该是指定学期课程的接口
+ *      输出的是单个CourseDetailed对象
+ * @param $course_array
+ * @return CourseSchedule
+ */
+function array_course_from_schedule_factory($course_array){
+    $result = new CourseSchedule();
+    $result->name = $course_array[0];
+    $result->time = $course_array[1];
+    $result->teacher = $course_array[2];
+    $result->classroom = $course_array[3];
+    return $result;
+}
+
+/**
  * 解析获取成绩为数组
  * 配合send_view_state_requests使用
  * @param $http_response
@@ -211,14 +246,12 @@ array (size=56)
     }
 
 /**
- * 从页面解析基本信息
+ * 从查分页面解析基本信息
  * 配合send_view_state_requests使用
  * @param $http_response
  * @return mixed
  */
-function personal_info_parser(string $http_response){
-
-    $http_response = iconv("gb2312","utf-8//IGNORE", $http_response);
+function personal_score_info_parser(string $http_response){
 
     $result = array(
         "sid"=> divide_string_by_colon(
@@ -235,6 +268,39 @@ function personal_info_parser(string $http_response){
         "direction"=> "", //这项学校不再提供了
         "class"=> divide_string_by_colon(
             get_content_by_tag_and_id($http_response, "span", "Label8")
+        )[1],//行政班
+    );
+
+    return $result;
+
+}
+
+
+
+/**
+ * 从课表页面解析基本信息
+ * 配合send_view_state_requests使用
+ * @param $http_response
+ * @return mixed
+ */
+function personal_schedule_info_parser(string $http_response){
+
+    $result = array(
+        "sid"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label5")
+        )[1], //学号
+        "name"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label6")
+        )[1],//姓名
+        "institute"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label7")
+        )[1],//学院
+        "major"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label8")
+        )[1],//专业
+        "direction"=> "", //这项学校不再提供了
+        "class"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label9")
         )[1],//行政班
     );
 
@@ -358,5 +424,40 @@ function specified_grade_parser(string $http_response){
 
      */
 
+}
+
+
+/**
+ * 解析某一学期成绩
+ * @param $http_response
+ * @return mixed
+ */
+function specified_schedule_parser(string $http_response){
+
+    $courses_content = get_content_by_tag_and_id($http_response, "table", "Table1");
+//    $courses = explode("<br><br>");
+
+    $array = extract_schedule_table_parser($courses_content);
+
+    $result = [];
+
+    foreach ($array as $a){
+        foreach ($a as $i){
+            if(!$i or !preg_match("/<br>/", $i)){
+                continue;
+            }
+            $cs = explode("<br><br>", $i);
+            foreach ($cs as $ca){
+                if(!$ca){
+                    continue;
+                }
+                $a = explode("<br>", $ca);
+                $c = array_course_from_schedule_factory($a);
+                array_push($result, $c);
+            }
+        }
+    }
+
+    return $result;
 }
 

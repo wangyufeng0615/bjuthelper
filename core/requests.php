@@ -75,17 +75,15 @@ function generate_exam_url(string $stu_id){
  * 可配合view_state_parser获取页面的 view state
  * 用于查询成绩的请求
  * @param HttpHolder $http_holder 传入已经登录的HttpHolder
- * @param string $stu_id 学号
+ * @param $url 链接
  * @return mixed
  */
-function send_view_state_request(HttpHolder $http_holder, string $stu_id){
+function send_view_state_request(HttpHolder $http_holder, string $url){
 
     // 不知道为什么，不提交姓名信息也能查询
     // preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
     // print_r($xm);
     // $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-
-    $url=generate_grade_url($stu_id);
 
     $http_content = $http_holder->post($url);
 
@@ -133,8 +131,8 @@ function send_specified_grade_request(HttpHolder $http_holder,
  * @return mixed
  */
 function send_all_grade_request(HttpHolder $http_holder,
-                                      string $stu_id,
-                                      string $view_state){
+                                string $stu_id,
+                                string $view_state){
 
     $url = generate_grade_url($stu_id);
 
@@ -143,6 +141,62 @@ function send_all_grade_request(HttpHolder $http_holder,
         '__VIEWSTATE'=>$view_state,
         'Button6'=>'%B2%E9%D1%AF%D2%D1%D0%DE%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8', //蜜汁
     );
+
+    $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
+
+    return $content;
+}
+
+/**
+ * 获取特定学期的课表
+ * @param HttpHolder $http_holder 传入已经登录的HttpHolder
+ * @param string $stu_id 学号
+ * @param string $view_state
+ * @param string $year 学年
+ * @param string $term 学期
+ * @return mixed
+ */
+function send_schedule_request(HttpHolder $http_holder,
+                               string $stu_id,
+                               string $view_state,
+                               string $year="",
+                               string $term=""
+){
+
+    $url = generate_course_url($stu_id);
+
+    if ($year and $term){
+        $post = array(
+//            '__VIEWSTATE'=>$view_state,
+            'xnd'=>$year,
+            'xqd'=>$term
+        );
+    }
+    else{
+//        $post = array('__VIEWSTATE'=>$view_state);
+        $post = array();
+    }
+
+    $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
+
+    return $content;
+}
+
+/**
+ * 获取特定学期的考试
+ * @param HttpHolder $http_holder 传入已经登录的HttpHolder
+ * @param string $stu_id 学号
+ * @param string $view_state
+ * @return mixed
+ */
+function send_exam_request(HttpHolder $http_holder,
+                             string $stu_id,
+                             string $view_state){
+
+    $url = generate_exam_url($stu_id);
+
+    $post = array(
+        '__VIEWSTATE'=>$view_state,);
 
     $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
 
