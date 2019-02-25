@@ -59,9 +59,17 @@ function generate_grade_url(string $stu_id){
  * @return string
  */
 function generate_course_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xscj_gc2.aspx?xh=".$stu_id;
+    return "http://gdjwgl.bjut.edu.cn/xskbcx.aspx?xh=".$stu_id;
 }
 
+/**
+ * 用于生成查询考试的链接
+ * @param string $stu_id 学号
+ * @return string
+ */
+function generate_exam_url(string $stu_id){
+    return "http://gdjwgl.bjut.edu.cn/xskscx.aspx?xh=".$stu_id;
+}
 
 /**
  * 可配合view_state_parser获取页面的 view state
@@ -122,8 +130,6 @@ function send_specified_grade_request(HttpHolder $http_holder,
  * @param HttpHolder $http_holder 传入已经登录的HttpHolder
  * @param string $stu_id 学号
  * @param string $view_state
- * @param string $current_year
- * @param string $current_term
  * @return mixed
  */
 function send_all_grade_request(HttpHolder $http_holder,
@@ -135,8 +141,6 @@ function send_all_grade_request(HttpHolder $http_holder,
     //查询总成绩
     $post = array(
         '__VIEWSTATE'=>$view_state,
-//        'ddlXN'=>$current_year,  //当前学年
-//        'ddlXQ'=>$current_term,  //当前学期
         'Button6'=>'%B2%E9%D1%AF%D2%D1%D0%DE%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8', //蜜汁
     );
 
