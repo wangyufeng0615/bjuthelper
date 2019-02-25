@@ -1,7 +1,4 @@
 /* Container */
-.warp {
-    margin: 5px;
-}
 
 @media (min-width: 576px) {
     .warp {
