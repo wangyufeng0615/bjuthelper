@@ -81,9 +81,7 @@ class BJUTHelper
         $context = send_all_grade_request(
             $this->http,
             $this->stu_id,
-            $this->view_state,
-            $current_year,
-            $current_term);
+            $this->view_state);
         $courses = all_grade_parser($context);
         $this->info = personal_info_parser($context);
         return $courses;

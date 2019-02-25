@@ -1,6 +1,7 @@
 <?php
 include_once ("model/Course.php");
 include_once ("model/CourseDetailed.php");
+include_once ("utils.php");
 
 /**
  * 所有的网页解析器
@@ -119,12 +120,14 @@ function extract_grade_table_parser(string $content) {
  */
 function array_course_from_all_factory($course_array){
     $result = new Course();
-    $result->id = $course_array[0];
-    $result->name = $course_array[1];
-    $result->type = $course_array[2];
-    $result->credit = $course_array[3];
-    $result->score = $course_array[4];
-    $result->belong = $course_array[5];
+    $result->year = $course_array[0];
+    $result->term = $course_array[1];
+    $result->id = $course_array[2];
+    $result->name = $course_array[3];
+    $result->credit = $course_array[4];
+    $result->type = $course_array[5];
+    $result->score = $course_array[6];
+    $result->belong = $course_array[7];
     return $result;
 }
 /**
@@ -165,9 +168,9 @@ function all_grade_parser(string $http_response){
 
     $array = extract_grade_table_parser($http_response);
     //去前
-    $array = array_slice($array, 5);
+    $array = array_slice($array, 1);
     //排后
-    $array = array_slice($array, 0, count($array) - 3);
+    $array = array_slice($array, 0, count($array) - 0);
 
     $result = [];
     foreach ($array as $i){
@@ -184,63 +187,27 @@ function all_grade_parser(string $http_response){
          * 序号与课程对应关系见[4]
          *
 array (size=56)
-  0 =>
-    array (size=1)
-      0 => string 'HTTP/1.1100ContinueHTTP/1.1200OKCache-Control:privateContent-Length:39679Content-Type:text/html;chaet=gb2312Server:Microsoft-IIS/7.0X-AspNet-Veion:1.1.4322X-Powered-By:ASP.NETDate:Tue,09Oct201806:49:16GMT现代教学管理信息系统functionshowWXKC(t,nr){Ext.Msg.getDialog().setWidth(500);Ext.MessageBox.alert(t+"还需修课程",nr);}functionwindow.onbeforeprint(){document.all.tabHidden.style.display="none"}functionwindow.onafterprint(){document.all.tabHidden.style.display="block"}functionclick(){if(event.'... (length=2108)
-  1 =>
-    array (size=3)
-      0 => string '学号：1608XXXX' (length=17)
-      1 => string '姓名：XXX' (length=18)
-      2 => string '学院：信息学部' (length=21)
-  2 =>
-    array (size=3)
-      0 => string '专业：软件工程（实验班）' (length=36)
-      1 => string '专业方向:' (length=13)
-      2 => string '行政班：1608XX' (length=18)
-  3 =>
-    array (size=1)
-      0 => string '' (length=0)
   4 =>
     array (size=6)
-      0 => string '已修课程最高成绩：课程代码' (length=39)
-      1 => string '课程名称' (length=12)
-      2 => string '课程性质' (length=12)
-      3 => string '学分' (length=6)
-      4 => string '最高成绩值' (length=15)
-      5 => string '课程归属' (length=12)
-  5 =>
-    array (size=6)
-      0 => string '0007069' (length=7)
-      1 => string '“中国特色社会主义建设”实践' (length=42)
-      2 => string '实践环节必修课' (length=21)
-      3 => string '2.0' (length=3)
-      4 => string '76' (length=2)
-      5 => string '' (length=0)
-
-  ……………………………………………………………………
-
-  52 =>
-    array (size=6)
-      0 => string '0004312' (length=7)
-      1 => string '中国近现代史纲要' (length=24)
-      2 => string '公共基础必修课' (length=21)
-      3 => string '2.0' (length=3)
-      4 => string '83' (length=2)
-      5 => string '' (length=0)
-  53 =>
-    array (size=1)
-      0 => string '' (length=0)
-  54 =>
-    array (size=4)
-      0 => string '' (length=0)
-      1 => string '' (length=0)
-      2 => string '' (length=0)
-      3 => string '' (length=0)
-  55 =>
-    array (size=2)
-      0 => string '成绩及绩点仅供参考，以教务管理端为准。' (length=57)
-      1 => string '' (length=0)
+      0 => string '学年' (length=39)
+      1 => string '学期' (length=12)
+      2 => string '课程代码' (length=12)
+      3 => string '课程名称' (length=12)
+      4 => string '学分' (length=6)
+      5 => string '课程性质' (length=12)
+      6 => string '最高成绩值' (length=15)
+      7 => string '课程归属' (length=12)
      */
+//    array (
+//        0 => '2017-2018',
+//        1 => '2',
+//        2 => '0003338',
+//        3 => 'JAVA程序设计',
+//        4 => '2.0',
+//        5 => '学科基础选修课',
+//        6 => '83',
+//        7 => '',
+//    )
     }
 
 /**
@@ -251,91 +218,28 @@ array (size=56)
  */
 function personal_info_parser(string $http_response){
 
-    $array = extract_grade_table_parser($http_response);
-
-    $info = [];
-
-    foreach (array_merge($array[1], $array[2]) as $index => $item) {
-        $item = str_replace(array("："),':',$item);
-        $result = explode(":", $item);
-        $info[trim($result[0])] = $result[1];
-    }
+    $http_response = iconv("gb2312","utf-8//IGNORE", $http_response);
 
     $result = array(
-        "sid"=> $info["学号"],
-        "name"=> $info["姓名"],
-        "institute"=> $info["学院"],
-        "major"=> $info["专业"],
-        "direction"=> $info["专业方向"],
-        "class"=> $info["行政班"],
+        "sid"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label3")
+        )[1], //学号
+        "name"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label5")
+        )[1],//姓名
+        "institute"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label6")
+        )[1],//学院
+        "major"=>
+            get_content_by_tag_and_id($http_response, "span", "Label7"),//专业
+        "direction"=> "", //这项学校不再提供了
+        "class"=> divide_string_by_colon(
+            get_content_by_tag_and_id($http_response, "span", "Label8")
+        )[1],//行政班
     );
 
     return $result;
 
-    /*
-     * 解析后数组格式大致如下：
-     * 特此记录供以后参考。
-     *
-     * 理论上传什么进来都一样
-     *
-array (size=56)
-  0 =>
-    array (size=1)
-      0 => string 'HTTP/1.1100ContinueHTTP/1.1200OKCache-Control:privateContent-Length:39679Content-Type:text/html;chaet=gb2312Server:Microsoft-IIS/7.0X-AspNet-Veion:1.1.4322X-Powered-By:ASP.NETDate:Tue,09Oct201806:49:16GMT现代教学管理信息系统functionshowWXKC(t,nr){Ext.Msg.getDialog().setWidth(500);Ext.MessageBox.alert(t+"还需修课程",nr);}functionwindow.onbeforeprint(){document.all.tabHidden.style.display="none"}functionwindow.onafterprint(){document.all.tabHidden.style.display="block"}functionclick(){if(event.'... (length=2108)
-  1 =>
-    array (size=3)
-      0 => string '学号：1608XXXX' (length=17)
-      1 => string '姓名：XXX' (length=18)
-      2 => string '学院：信息学部' (length=21)
-  2 =>
-    array (size=3)
-      0 => string '专业：软件工程（实验班）' (length=36)
-      1 => string '专业方向:' (length=13)
-      2 => string '行政班：1608XX' (length=18)
-  3 =>
-    array (size=1)
-      0 => string '' (length=0)
-  4 =>
-    array (size=6)
-      0 => string '已修课程最高成绩：课程代码' (length=39)
-      1 => string '课程名称' (length=12)
-      2 => string '课程性质' (length=12)
-      3 => string '学分' (length=6)
-      4 => string '最高成绩值' (length=15)
-      5 => string '课程归属' (length=12)
-  5 =>
-    array (size=6)
-      0 => string '0007069' (length=7)
-      1 => string '“中国特色社会主义建设”实践' (length=42)
-      2 => string '实践环节必修课' (length=21)
-      3 => string '2.0' (length=3)
-      4 => string '76' (length=2)
-      5 => string '' (length=0)
-
-  ……………………………………………………………………
-
-  52 =>
-    array (size=6)
-      0 => string '0004312' (length=7)
-      1 => string '中国近现代史纲要' (length=24)
-      2 => string '公共基础必修课' (length=21)
-      3 => string '2.0' (length=3)
-      4 => string '83' (length=2)
-      5 => string '' (length=0)
-  53 =>
-    array (size=1)
-      0 => string '' (length=0)
-  54 =>
-    array (size=4)
-      0 => string '' (length=0)
-      1 => string '' (length=0)
-      2 => string '' (length=0)
-      3 => string '' (length=0)
-  55 =>
-    array (size=2)
-      0 => string '成绩及绩点仅供参考，以教务管理端为准。' (length=57)
-      1 => string '' (length=0)
-     */
 }
 
 
@@ -349,9 +253,9 @@ function specified_grade_parser(string $http_response){
 
     $array = extract_grade_table_parser($http_response);
     //去前
-    $array = array_slice($array, 5);
+    $array = array_slice($array, 1);
     //排后
-    $array = array_slice($array, 0, count($array) - 3);
+    $array = array_slice($array, 0, count($array) - 24);
 
     $result = [];
     foreach ($array as $i){
@@ -363,28 +267,10 @@ function specified_grade_parser(string $http_response){
 
     /*
      * 解析后数组格式大致如下：
-     * 特此记录供以后参考。
-     * 因此，从第五个开始为课程，最后3个也是废弃信息。
-     * 序号与课程对应关系见[4]
+     * 下面这个已
      *
  array (size=22)
   0 =>
-    array (size=1)
-      0 => string 'HTTP/1.1100ContinueHTTP/1.1200OKCache-Control:privateContent-Length:59141Content-Type:text/html;chaet=gb2312Server:Microsoft-IIS/7.0X-AspNet-Veion:1.1.4322X-Powered-By:ASP.NETDate:Tue,09Oct201806:44:33GMT现代教学管理信息系统functionshowWXKC(t,nr){Ext.Msg.getDialog().setWidth(500);Ext.MessageBox.alert(t+"还需修课程",nr);}functionwindow.onbeforeprint(){document.all.tabHidden.style.display="none"}functionwindow.onafterprint(){document.all.tabHidden.style.display="block"}functionclick(){if(event.'... (length=2145)
-  1 =>
-    array (size=3)
-      0 => string '学号：1608XXXX' (length=17)
-      1 => string '姓名：XXX' (length=18)
-      2 => string '学院：信息学部' (length=21)
-  2 =>
-    array (size=3)
-      0 => string '专业：软件工程（实验班）' (length=36)
-      1 => string '专业方向:' (length=13)
-      2 => string '行政班：1608XX' (length=18)
-  3 =>
-    array (size=1)
-      0 => string '' (length=0)
-  4 =>
     array (size=15)
       0 => string '学年' (length=6)
       1 => string '学期' (length=6)
@@ -401,6 +287,7 @@ function specified_grade_parser(string $http_response){
       12 => string '开课学院' (length=12)
       13 => string '备注' (length=6)
       14 => string '重修标记' (length=12)
+    【这里多了一个课程英文名称】
   5 =>
     array (size=15)
       0 => string '2017-2018' (length=9)
