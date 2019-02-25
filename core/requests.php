@@ -50,25 +50,40 @@ function send_login_request(HttpHolder $http_holder, string $stu_id, string $pwd
  * @return string
  */
 function generate_grade_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xscjcx.aspx?xh=".$stu_id;
+    return "http://gdjwgl.bjut.edu.cn/xscj_gc2.aspx?xh=".$stu_id;
 }
 
+/**
+ * 用于生成查询课表的链接
+ * @param string $stu_id 学号
+ * @return string
+ */
+function generate_course_url(string $stu_id){
+    return "http://gdjwgl.bjut.edu.cn/xskbcx.aspx?xh=".$stu_id;
+}
+
+/**
+ * 用于生成查询考试的链接
+ * @param string $stu_id 学号
+ * @return string
+ */
+function generate_exam_url(string $stu_id){
+    return "http://gdjwgl.bjut.edu.cn/xskscx.aspx?xh=".$stu_id;
+}
 
 /**
  * 可配合view_state_parser获取页面的 view state
  * 用于查询成绩的请求
  * @param HttpHolder $http_holder 传入已经登录的HttpHolder
- * @param string $stu_id 学号
+ * @param $url 链接
  * @return mixed
  */
-function send_view_state_request(HttpHolder $http_holder, string $stu_id){
+function send_view_state_request(HttpHolder $http_holder, string $url){
 
     // 不知道为什么，不提交姓名信息也能查询
     // preg_match_all('/<span id="xhxm">([^<>]+)/', $con2, $xm);   //正则出的数据存到$xm数组中
     // print_r($xm);
     // $xm[1][0]=substr($xm[1][0],0,-4);  //字符串截取，获得姓名
-
-    $url=generate_grade_url($stu_id);
 
     $http_content = $http_holder->post($url);
 
@@ -96,14 +111,10 @@ function send_specified_grade_request(HttpHolder $http_holder,
 
     //查询某一学期的成绩
     $post=array(
-        '__EVENTTARGET'=>'',
-        '__EVENTARGUMENT'=>'',
         '__VIEWSTATE'=>$view_state,
-        'hidLanguage'=>'',
         'ddlXN'=>$current_year,  //当前学年
         'ddlXQ'=>$current_term,  //当前学期
-        'ddl_kcxz'=>'',
-        'btn_xq'=>'%D1%A7%C6%DA%B3%C9%BC%A8'  //“学期成绩”的gbk编码，视情况而定
+        'Button1'=>'%B0%B4%D1%A7%C6%DA%B2%E9%D1%AF',  //别问我是啥 我也不知道
     );
 
     $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
@@ -117,29 +128,75 @@ function send_specified_grade_request(HttpHolder $http_holder,
  * @param HttpHolder $http_holder 传入已经登录的HttpHolder
  * @param string $stu_id 学号
  * @param string $view_state
- * @param string $current_year
- * @param string $current_term
  * @return mixed
  */
 function send_all_grade_request(HttpHolder $http_holder,
-                                      string $stu_id,
-                                      string $view_state,
-                                      string $current_year,
-                                      string $current_term){
+                                string $stu_id,
+                                string $view_state){
 
     $url = generate_grade_url($stu_id);
 
     //查询总成绩
     $post = array(
-        '__EVENTTARGET'=>'',
-        '__EVENTARGUMENT'=>'',
         '__VIEWSTATE'=>$view_state,
-        'hidLanguage'=>'',
-        'ddlXN'=>$current_year,  //当前学年
-        'ddlXQ'=>$current_term,  //当前学期
-        'ddl_kcxz'=>'',
-        'btn_zg'=>'%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8'  //课程最高成绩-gbk
+        'Button6'=>'%B2%E9%D1%AF%D2%D1%D0%DE%BF%CE%B3%CC%D7%EE%B8%DF%B3%C9%BC%A8', //蜜汁
     );
+
+    $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
+
+    return $content;
+}
+
+/**
+ * 获取特定学期的课表
+ * @param HttpHolder $http_holder 传入已经登录的HttpHolder
+ * @param string $stu_id 学号
+ * @param string $view_state
+ * @param string $year 学年
+ * @param string $term 学期
+ * @return mixed
+ */
+function send_schedule_request(HttpHolder $http_holder,
+                               string $stu_id,
+                               string $view_state,
+                               string $year="",
+                               string $term=""
+){
+
+    $url = generate_course_url($stu_id);
+
+    if ($year and $term){
+        $post = array(
+//            '__VIEWSTATE'=>$view_state,
+            'xnd'=>$year,
+            'xqd'=>$term
+        );
+    }
+    else{
+//        $post = array('__VIEWSTATE'=>$view_state);
+        $post = array();
+    }
+
+    $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
+
+    return $content;
+}
+
+/**
+ * 获取特定学期的考试
+ * @param HttpHolder $http_holder 传入已经登录的HttpHolder
+ * @param string $stu_id 学号
+ * @param string $view_state
+ * @return mixed
+ */
+function send_exam_request(HttpHolder $http_holder,
+                             string $stu_id,
+                             string $view_state){
+
+    $url = generate_exam_url($stu_id);
+
+    $post = array(
+        '__VIEWSTATE'=>$view_state,);
 
     $content=$http_holder->post($url,http_build_query($post)); //获取原始数据
 

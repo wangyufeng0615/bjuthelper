@@ -17,4 +17,6 @@ class Course
     public $credit;     //学分
     public $score;      //最高成绩值
     public $belong;     //课程归属
+    public $year;       //学年
+    public $term;       //学其
 }

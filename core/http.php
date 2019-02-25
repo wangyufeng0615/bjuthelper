@@ -58,6 +58,8 @@ class HttpHolder{
         if($cookie){
             $this->cookie = $cookie;
         }
+        //统一转码至utf-8
+        $result = iconv("gb2312","utf-8//IGNORE", $result);
         return $result;
     }
 }
