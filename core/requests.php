@@ -50,7 +50,7 @@ function send_login_request(HttpHolder $http_holder, string $stu_id, string $pwd
  * @return string
  */
 function generate_grade_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xscj_gc2.aspx?xh=".$stu_id;
+    return "http://gdjwgl.bjut.edu.cn/xscj_gc.aspx?xh=".$stu_id;
 }
 
 /**
