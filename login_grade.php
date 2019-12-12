@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>野生工大助手 - 无验证码版</title>
+	<title>野生工大助手 - 查个锤子</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css">
     <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
 	<script src="js/login_score.js"></script>
@@ -153,10 +153,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<article class="weui_article">
 
-        <div class="show-img" style="width: 100%;">
-            <img src="imgs/xuanchuan.png" style="display: block; margin: auto; width: 100%; max-width: 600px;" />
-        </div>
-
 <h1>
 <i class="weui_icon_success_circle"></i>&nbsp;账号和密码不会保留，请放心使用。<br>
 <i class="weui_icon_warn"></i>&nbsp;数据仅供参考，请以教务系统为准。<br></h1>
@@ -166,16 +162,13 @@ GPA 根据 <a href="http://undergrad.bjut.edu.cn/WebInfo.aspx?Id=752">北工大�
 展开详情可以查看该科目补考通过后的参考均分</p>
 
 <br>
-<a href="http://www.devchen.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
+<a href="https://www.coder17.com/blog/coding/PHP/20170112-bjut-helper/#2017-1-11">关于更新后加权和绩点变化的说明</a><br>
 <section>
-如数据有问题(或者网站打不开了)请联系:<br>
-<a href="http://www.wangyufeng.org">王雨峰</a>(alanwang424@gmail.com)<br>
-<a href="http://www.coder17.com">陈仕玺</a>(chen17@coder17.com)<br>
-辅修查询 by <a href = "https://blog.nyan.im/">郭都豪</a><br>
-代码重构 by 马文瑞<br>
+如数据有问题(或者网站打不开了)请：<br>
+<a href="https://github.com/BJUT-hammer/bjuthelper/issues">点击此处在 Github 上提出</a> 
+或 <a href="mailto:xiaoximew@gmail.com">邮件联系我们</a><br>
 <br>
-QR Code is designed by the most beautiful girl in the world.<br>
-适用北京工业大学, <a href="https://github.com/remini1998/bjuthelper">Github</a><br>
+适用北京工业大学, by <a href="https://github.com/BJUT-hammer">西大望路东锤子研究所</a><br>
 <i class="weui_icon_warn"></i>&nbsp;本项目是已结题星火重点项目，已报备相关单位<br>
 <a href="http://www.miit.gov.cn/">京ICP备16062922号-1</a>
 </section>
