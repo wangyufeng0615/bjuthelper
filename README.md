@@ -1,5 +1,9 @@
 # 工大野生助手
 
+【本仓库不再维护】项目后续运营移至 https://github.com/BJUT-hammer/bjuthelper
+
+如需提交issue、PR，请移步新链接
+
 ## TODO LIST
 
 - 更新README，以适应重构后的代码
