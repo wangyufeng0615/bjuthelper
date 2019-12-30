@@ -39,18 +39,23 @@ class BJUTHelper
     function login(){
 	    if (function_exists('apcu_fetch')) {
 		    $existing_cookie = apcu_fetch('cookie_'.$this->stu_id);
-		    $this->http->set_cookie($existing_cookie);
-		    return true;
+		    if($existing_cookie){
+			    $this->http->set_cookie($existing_cookie);
+			    return true;
+		    }
 	    }
-        $login_context = send_login_request($this->http, $this->stu_id, $this->password);
+
+	    $login_context = send_login_request($this->http, $this->stu_id, $this->password);
         if(!check_login_success_parser($login_context)){
             $this->is_login = false;
             return false;
         }
+
 	    if (function_exists('apcu_fetch')) {
 		    apcu_store('cookie_'.$this->stu_id, $this->http->get_cookie(), 300);
 	    }
-        $this->is_login = true;
+
+	    $this->is_login = true;
         return true;
     }
     /**
@@ -302,6 +307,13 @@ class BJUTHelper
 	 * 登录 VPN
 	 */
 	function login_vpn(){
+		if (function_exists('apcu_fetch')) {
+			$existing_cookie = apcu_fetch('vpn_cookie');
+			if($existing_cookie){
+				$this->http->set_cookie($existing_cookie);
+				return true;
+			}
+		}
 		global $proxyUserName, $proxyPassword;
 		$url="https://vpn.bjut.edu.cn/prx/000/http/localhost/login";  // VPN 网关地址
 
@@ -312,6 +324,9 @@ class BJUTHelper
 
 		$login_context =  $this->http->post($url, http_build_query($post), true, 0); //将数组连接成字符串, 登陆教务系统
 		if(strstr($login_context, "https://vpn.bjut.edu.cn/prx/000/http/localhost/welcome")){
+			if (function_exists('apcu_fetch')) {
+				apcu_store('vpn_cookie', $this->http->get_cookie(), 1800);
+			}
 			return true;
 		}
 		return false;

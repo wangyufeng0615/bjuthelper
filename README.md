@@ -58,6 +58,19 @@
 - 交流请联系 807103724@qq.com，微信同QQ。
 - 欢迎提交Issue和Pull Request！
 
+## 外网使用
+
+更新后的野生助手可以安装在外网机器上，只需要提供 https://vpn.bjut.edu.cn/ 网关登录账户即可。
+
+配置方式：只需要在主目录中创建 config.php 这个文件，内容包含 VPN 的用户名和密码。该用户名和密码可能与教务系统有所不同。
+
+```php
+<?php
+$proxyUserName="18010101";
+$proxyPassword="123456";
+
+```
+
 ## LICENSE(假装写出了一个开源的东西)
 
 MIT
