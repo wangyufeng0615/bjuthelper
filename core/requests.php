@@ -12,6 +12,12 @@
 include_once('parser.php');
 include_once('http.php');
 
+if(isset($proxyUserName)) {
+	define("URL_PREFIX", "https://vpn.bjut.edu.cn/prx/000/http/");
+} else {
+	define("URL_PREFIX", "http://");
+}
+
 /**
  * 登录，传进来的$http_holder的内置cookie会自动更换
  * @param HttpHolder $http_holder 需要自动更换cookie的http_holder
@@ -23,7 +29,7 @@ function send_login_request(HttpHolder $http_holder, string $stu_id, string $pwd
 
     //$code= $_POST['verify_code'];
     //$cookie = dirname(__FILE__) . '/cookie/'.$_SESSION['id'].'.txt';
-    $url="http://gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
+    $url=URL_PREFIX . "gdjwgl.bjut.edu.cn/default_vsso.aspx";  //教务地址
     //$con1=login_post($url,$cookie,'');               //登陆
     //preg_match_all('/<input type="hidden" name="__VIEWSTATE" value="([^<>]+)" \/>/', $con1, $view); //获取__VIEWSTATE字段并存到$view数组中
     //为登陆准备的POST数据
@@ -33,14 +39,14 @@ function send_login_request(HttpHolder $http_holder, string $stu_id, string $pwd
         'TextBox1'=>$stu_id,
         'TextBox2'=>$pwd,
         //'txtSecretCode'=>$code,
-        'RadioButtonList1_2'=>'%D1%A7%C9%FA',  //“学生”的gbk编码
-        'Button1'=>'',
+        //'RadioButtonList1_2'=>'%D1%A7%C9%FA',  //“学生”的gbk编码
+        //'Button1'=>'',
         //'lbLanguage'=>'',
         //'hidPdrs'=>'',
         //'hidsc'=>''
     );
 
-    return $http_holder->post($url,http_build_query($post)); //将数组连接成字符串, 登陆教务系统
+    return $http_holder->post($url,http_build_query($post), true, 0); //将数组连接成字符串, 登陆教务系统
 
 }
 
@@ -50,7 +56,7 @@ function send_login_request(HttpHolder $http_holder, string $stu_id, string $pwd
  * @return string
  */
 function generate_grade_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xscj_gc.aspx?xh=".$stu_id;
+    return URL_PREFIX . "gdjwgl.bjut.edu.cn/xscj_gc.aspx?xh=".$stu_id;
 }
 
 /**
@@ -59,7 +65,7 @@ function generate_grade_url(string $stu_id){
  * @return string
  */
 function generate_course_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xskbcx.aspx?xh=".$stu_id;
+    return URL_PREFIX . "gdjwgl.bjut.edu.cn/xskbcx.aspx?xh=".$stu_id;
 }
 
 /**
@@ -68,7 +74,7 @@ function generate_course_url(string $stu_id){
  * @return string
  */
 function generate_exam_url(string $stu_id){
-    return "http://gdjwgl.bjut.edu.cn/xskscx.aspx?xh=".$stu_id;
+    return URL_PREFIX . "gdjwgl.bjut.edu.cn/xskscx.aspx?xh=".$stu_id;
 }
 
 /**

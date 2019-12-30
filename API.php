@@ -5,6 +5,9 @@
  * Date: 2018/10/11
  * Time: 8:38 AM
  */
+if(file_exists('config.php')){
+	include 'config.php';
+}
 
 include_once("core/BJUTHelper.php");
 include_once("core/model/APIResult.php");
@@ -40,6 +43,15 @@ $current_term = get_argument('current_term', "");
 
 $student = new BJUTHelper($xh, $pw);
 
+if(isset($proxyUserName)){
+	if(!$student->login_vpn()){
+		$response = new APIResult();
+		$response->err = 403;
+		$response->err_msg = "VPN网关账户信息错误";
+		echo json_encode($response, JSON_UNESCAPED_UNICODE);
+		exit();
+	}
+}
 $login_success = $student->login();
 
 //若登陆信息输入有误

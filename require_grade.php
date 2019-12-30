@@ -19,6 +19,9 @@ include_once("core/BJUTHelper.php");
 
     $student = new BJUTHelper($xh, $pw);
 
+    if(isset($proxyUserName)){
+	    $student->login_vpn();
+	}
     $login_success = $student->login();
 
     //若登陆信息输入有误

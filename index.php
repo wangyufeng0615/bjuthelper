@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     define( 'ABSPATH', dirname( __FILE__ ) . '/' );
 }
 
+if(file_exists(ABSPATH . 'config.php')){
+	include ABSPATH . 'config.php';
+}
+
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 
 if( isset($_POST['account']) && isset($_POST['password']) &&
